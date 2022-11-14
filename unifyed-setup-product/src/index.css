@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Preflight or nomalize rule will be injected here */
+}
+
+@layer components {
+  /* All custom component such as button rule will be injected here */
+}
+
+@layer utilities {
+  /* All utility rules such as shadow, alignation, etc will be injected here */
+}
