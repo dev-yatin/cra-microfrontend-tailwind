@@ -1,0 +1,1 @@
+This folder will contain the configuration file like payment gateway, any web insights like google,amplitue etc
