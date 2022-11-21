@@ -1,3 +1,5 @@
-const Sample = () => <div className="text-3xl font-bold underline">Sample</div>;
+function Sample() {
+  return <div className="min-h-screen">Dashboard</div>;
+}
 
 export default Sample;
