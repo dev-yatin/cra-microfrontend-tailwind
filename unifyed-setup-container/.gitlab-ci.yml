@@ -6,16 +6,7 @@ variables:
     ECS_CLUSTER_NAME: UNIFYED-ENGAGE-DEV
     # DOCKER_HOST: tcp://docker:2375
     TAG: DEV-CONT
-stages:
-    - triggers
-
 publish_setup_container_dev:
-    stage: triggers
-    trigger:
-        include: unifyed-setup-container/.gitlab-ci.yml
-    rules:
-        - changes:
-              - unifyed-setup-container/*
     image:
         name: docker:19.03
     services:
