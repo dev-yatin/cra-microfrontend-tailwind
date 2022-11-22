@@ -32,5 +32,5 @@ publish_setup_container_dev:
         # - aws ecr get-login-password | docker login --username AWS --password-stdin $DOCKER_REGISTRY
         # - docker push $DOCKER_REGISTRY/$APP_NAME:$TAG
         # - aws ecs update-service --cluster $ECS_CLUSTER_NAME --service $ECS_SERVICE_NAME --force-new-deployment
-    only:
-        - main
+    rules:
+        - if: $CI_COMMIT_BRANCH == "main"
