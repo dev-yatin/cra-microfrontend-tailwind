@@ -26,7 +26,7 @@ publish_setup_container_dev:
         # - aws --version
         # - docker --version
         # - git --version
-        - echo "Inside Unifyed Setup Container"
+        - echo "Inside Unifyed Setup Container Changed"
     script:
         # - docker build -t $DOCKER_REGISTRY/$APP_NAME:$TAG .
         # - aws ecr get-login-password | docker login --username AWS --password-stdin $DOCKER_REGISTRY
