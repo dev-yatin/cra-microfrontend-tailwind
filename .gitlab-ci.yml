@@ -1,7 +1,7 @@
 stages:
     - triggers
 
-publish_setup_product_dev:
+trigger_publish_setup_product_dev:
     stage: triggers
     trigger:
         include: unifyed-setup-product/.gitlab-ci.yml
@@ -9,7 +9,7 @@ publish_setup_product_dev:
         - changes:
               - unifyed-setup-product/*
 
-publish_setup_container_dev:
+trigger_publish_setup_container_dev:
     stage: triggers
     trigger:
         include: unifyed-setup-container/.gitlab-ci.yml
