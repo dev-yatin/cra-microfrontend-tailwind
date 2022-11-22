@@ -17,7 +17,7 @@ publish_setup_container_dev:
         # - aws --version
         # - docker --version
         # - git --version
-        - echo "Inside Unifyed Setup Container "
+        - echo "Inside Unifyed Setup Container Only"
     script:
         - docker help
         # - docker build -t $DOCKER_REGISTRY/$APP_NAME:$TAG .
