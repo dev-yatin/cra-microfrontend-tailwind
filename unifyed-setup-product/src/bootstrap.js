@@ -1,3 +1,4 @@
+import ThemeContext from "context/ThemeContext";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
@@ -10,7 +11,9 @@ const mount = (el) => {
   root.render(
     <React.StrictMode>
       <BrowserRouter>
-        <App />
+        <ThemeContext>
+           <App />
+        </ThemeContext>
       </BrowserRouter>
     </React.StrictMode>
   );
@@ -32,3 +35,4 @@ if (environment === "development") {
 // If we running through container
 // export mount function
 export { mount };
+
