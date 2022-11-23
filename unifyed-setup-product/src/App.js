@@ -7,18 +7,14 @@ import { applyTheme } from "themes/utils";
 
 function App() {
   let history = useHistory();
-  if(history.location.pathname === "/"){
-    history.push("/test");
+  if (history.location.pathname === "/") {
+    history.push("/home");
   }
   useEffect(() => {
     applyTheme(baseTheme);
   }, []);
 
-  return (
-              <Routes />
-
-
-  );
+  return <Routes />;
 }
 
 export default App;
