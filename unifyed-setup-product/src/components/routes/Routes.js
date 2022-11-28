@@ -108,6 +108,7 @@ const Routes = () => {
     ...getDynamicRoutes(navigations),
     ...staticRoutes,
   };
+
   return (
     <Layout>
       <Switch>
@@ -116,7 +117,9 @@ const Routes = () => {
             const RouteComponent = routeComponentMap[route];
             return (
               <Route key={`${route}-${i}`} exact path={`/${route}`}>
-                  <RouteComponent />
+                {/* <ContextProvider> */}
+                <RouteComponent />
+                {/* </ContextProvider> */}
               </Route>
             );
           })}

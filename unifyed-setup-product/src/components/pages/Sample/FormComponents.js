@@ -1,63 +1,152 @@
 // import { ExclamationCircleIcon } from "@heroicons/react/20/solid";
+import { useFormik } from "formik";
+import { maskSSN } from "utils/FormatUtils";
 import getFieldByType from "utils/FormFieldUtils";
+import * as Yup from "yup";
+const validationSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Enter valid Email ID")
+    .max(50, "Email cannot exceed 50 characters!"),
+  password: Yup.string().required("Enter password "),
+});
+
 function FormComponents() {
-  const field = {
-    type: "number",
-    name: "email",
-    lable: "Email",
-    readOnly: false,
+  const fields = [
+    {
+      type: "text",
+      name: "email",
+      label: "Email",
+      readOnly: false,
+    },
+    {
+      type: "text",
+      name: "password",
+      label: "Password",
+      readOnly: false,
+    },
+    {
+      type: "switch",
+      name: "test",
+      label: "Status",
+      primaryLabel: "InActive",
+      secondaryLabel: "Active",
+      readOnly: false,
+    },
+    {
+      type: "textarea",
+      name: "comments",
+      label: "Commnets",
+      rows: 4,
+      readOnly: false,
+    },
+    {
+      name: "ssn",
+      label: "SSN",
+      isRequired: false,
+      type: "maskedInput",
+      readOnly: false,
+      maxLength: 11,
+      format: maskSSN,
+    },
+    {
+      name: "check",
+      label: "check",
+      type: "checkbox",
+      readOnly: false,
+    },
+    {
+      name: "teaching",
+      label: "Identifier",
+      isRequired: false,
+      type: "select",
+      readOnly: false,
+      spanXS: 12,
+      spanSM: 6,
+      onChange: () => {},
+      options: [
+        {
+          value: true,
+          component: (
+            <>
+              <span>YES</span>
+            </>
+          ),
+          name: "teaching",
+        },
+        {
+          value: false,
+          component: (
+            <>
+              <span>NO</span>
+            </>
+          ),
+          name: "teaching",
+        },
+      ],
+    },
+    {
+      name: "mobile",
+      label: "Mobile Number",
+      isRequired: false,
+      readOnly: false,
+      spanXS: 12,
+      spanSM: 6,
+      dialCodeType: "mobile",
+      dialCode: `dialCode`,
+      type: "select-mobile",
+      options: [],
+      defaultCountryCode: "us",
+      enableCharCount: true,
+      chartCountMaxLimit: 10,
+      maxLength: 13,
+    },
+  ];
+  const initialFormValues = {
+    email: "",
+    password: "",
+    test: false,
+    comments: "",
+    ssn: "",
+    check: "",
+    teaching: "",
+    moiile: "",
+    dialCode: {
+      mobile: "+1",
+    },
   };
+  const formik = useFormik({
+    initialValues: initialFormValues,
+    validationSchema: validationSchema,
+    onSubmit: (data) => {
+      console.log("here", data);
+    },
+    enableReinitialize: true,
+  });
 
   return (
     <>
       <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <form className="space-y-6" action="#" method="POST">
-              {getFieldByType(field)}{" "}
-              <div>
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Password
-                </label>
-                <div className="mt-1">
-                  <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    autoComplete="current-password"
-                    required
-                    className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                  />
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center">
-                  <input
-                    id="remember-me"
-                    name="remember-me"
-                    type="checkbox"
-                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                  />
-                  <label
-                    htmlFor="remember-me"
-                    className="ml-2 block text-sm text-gray-900"
-                  >
-                    Remember me
-                  </label>
-                </div>
+            <form
+              className="space-y-6"
+              onSubmit={(e) => {
+                e.preventDefault();
+                console.log("here", formik.values, formik.errors);
 
-                <div className="text-sm">
-                  <a
-                    href="#"
-                    className="font-medium text-indigo-600 hover:text-indigo-500"
-                  >
-                    Forgot your password?
-                  </a>
-                </div>
-              </div>
+                if (
+                  !!formik.touched &&
+                  Object.entries(formik.touched).length > 0 &&
+                  formik.touched.constructor === Object &&
+                  Object.keys(formik.errors).length === 0
+                ) {
+                  console.log("here");
+                } else {
+                  formik.handleSubmit();
+                }
+              }}
+            >
+              {fields.map((field) => getFieldByType(field, formik))}
               <div>
                 <button
                   type="submit"
