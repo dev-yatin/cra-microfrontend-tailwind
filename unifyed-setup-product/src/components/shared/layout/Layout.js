@@ -33,7 +33,7 @@ const Layout = ({ children, location, history }) => {
   }, []);
 
   return (
-    <div className="min-h-screen md:flex flex-row bg-gray-100 overflow-x-hidden overflow-y-hidden">
+    <div className="min-h-screen md:flex flex-row bg-red-700 overflow-x-hidden overflow-y-hidden">
       {AuthState.user ? <InvolvTenantSidebar /> : <SideBar />}
 
       <div className="flex-1">

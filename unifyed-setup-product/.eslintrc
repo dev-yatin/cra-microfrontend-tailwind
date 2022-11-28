@@ -3,7 +3,7 @@
   "plugins": ["autofix", "unused-imports"],
   "rules": {
     "no-unused-vars": "off",
-    "react/self-closing-comp": ["error", { "component": true, "html": true }],
+    // "react/self-closing-comp": ["error", { "component": true, "html": true }],
     "autofix/no-unused-vars": [
       "error",
       {

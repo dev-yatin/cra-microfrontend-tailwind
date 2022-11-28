@@ -12,7 +12,7 @@ const mount = (el) => {
     <React.StrictMode>
       <BrowserRouter>
         <ThemeContext>
-           <App />
+          <App />
         </ThemeContext>
       </BrowserRouter>
     </React.StrictMode>
@@ -35,4 +35,3 @@ if (environment === "development") {
 // If we running through container
 // export mount function
 export { mount };
-

@@ -1,13 +1,14 @@
 import FormComponents from "components/pages/Sample/FormComponents";
 import Sample from "components/pages/Sample/Sample";
 import SampleForm from "components/pages/Sample/SampleForm";
+import UserDetails from "components/pages/UserDetails/UserDetails";
 import Layout from "components/shared/layout/Layout";
-import ContextProvider from "context/provider";
 import { Route, Switch } from "react-router-dom";
 const routeComponentMap = {
   "": Sample,
   form: SampleForm,
   home: FormComponents,
+  userdetail:UserDetails
 };
 
 const navigations = [
@@ -45,6 +46,24 @@ const navigations = [
     },
     childItems: [],
   },
+   {
+    id: 1,
+    parent: null,
+    name: "UserDetails",
+    menuOrder: 1,
+    visible: true,
+    leafNode: true,
+    logo: null,
+    toolTip: null,
+    accessComponentDTO: {
+      id: 1,
+      description: "UserDetails",
+      componentName: "UserDetails",
+      componentPath: "userdetail",
+    },
+    childItems: [],
+  },
+
 ];
 
 const staticRoutes = { "": "Sample" };
@@ -97,9 +116,7 @@ const Routes = () => {
             const RouteComponent = routeComponentMap[route];
             return (
               <Route key={`${route}-${i}`} exact path={`/${route}`}>
-                <ContextProvider>
                   <RouteComponent />
-                </ContextProvider>
               </Route>
             );
           })}
