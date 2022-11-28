@@ -14,7 +14,11 @@ function App() {
     applyTheme(baseTheme);
   }, []);
 
-  return <Routes />;
+  return (
+    <div className="h-screen">
+      <Routes />
+    </div>
+  );
 }
 
 export default App;

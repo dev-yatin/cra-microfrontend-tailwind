@@ -2,7 +2,7 @@ import FormComponents from "components/pages/Sample/FormComponents";
 import Sample from "components/pages/Sample/Sample";
 import SampleForm from "components/pages/Sample/SampleForm";
 import Layout from "components/shared/layout/Layout";
-import ContextProvider from "context/provider";
+
 import { Route, Switch } from "react-router-dom";
 const routeComponentMap = {
   "": Sample,
@@ -89,6 +89,7 @@ const Routes = () => {
     ...getDynamicRoutes(navigations),
     ...staticRoutes,
   };
+
   return (
     <Layout>
       <Switch>
@@ -97,9 +98,9 @@ const Routes = () => {
             const RouteComponent = routeComponentMap[route];
             return (
               <Route key={`${route}-${i}`} exact path={`/${route}`}>
-                <ContextProvider>
-                  <RouteComponent />
-                </ContextProvider>
+                {/* <ContextProvider> */}
+                <RouteComponent />
+                {/* </ContextProvider> */}
               </Route>
             );
           })}

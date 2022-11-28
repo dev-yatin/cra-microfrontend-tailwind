@@ -1,5 +1,4 @@
 import InvolvTenantHeader from "components/shared/header/InvolvTenantHeader";
-import InvolvTenantSidebar from "components/shared/sidebar/InvolvTenantSidebar";
 import { SideBar } from "components/shared/sidebar/SideBar";
 import { AuthState } from "context/AuthContext";
 import { memo, useEffect, useState } from "react";
@@ -33,8 +32,8 @@ const Layout = ({ children, location, history }) => {
   }, []);
 
   return (
-    <div className="min-h-screen md:flex flex-row bg-gray-100 overflow-x-hidden overflow-y-hidden">
-      {AuthState.user ? <InvolvTenantSidebar /> : <SideBar />}
+    <div className="min-h-screen md:flex flex-row bg-gray-100 overflow-x-hidden overflow-y-hidden bg-red-500">
+      {AuthState.user ? <SideBar /> : <SideBar />}
 
       <div className="flex-1">
         <InvolvTenantHeader
