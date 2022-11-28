@@ -18,7 +18,7 @@ publish_setup_product_dev:
         # - aws --version
         # - docker --version
         # - git --version
-        - echo "Inside Unifyed Setup Product"
+        - echo "Inside Unifyed Setup Product Testing Shared runner"
     script:
         - docker help
         # - docker build -t $DOCKER_REGISTRY/$APP_NAME:$TAG .
