@@ -185,9 +185,14 @@ module.exports = {
       borderRadius: {},
     },
   },
+  variants: {
+    extend: {},
+    spinner: ['responsive'],
+  },
   plugins: [
     require("tailwind-scrollbar"),
     require("@tailwindcss/forms"),
     require("tailwindcss-pseudo-elements"),
+    require('tw-elements/dist/plugin')
   ],
 };

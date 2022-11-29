@@ -7,7 +7,7 @@ import { applyTheme } from "themes/utils";
 
 function App() {
   let history = useHistory();
-  if(history.location.pathname === "/"){
+  if (history.location.pathname === "/") {
     history.push("/test");
   }
   useEffect(() => {
@@ -15,9 +15,9 @@ function App() {
   }, []);
 
   return (
-              <Routes />
-
-
+    <>
+      <Routes />
+    </>
   );
 }
 

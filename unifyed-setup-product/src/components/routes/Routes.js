@@ -80,11 +80,11 @@ const Routes = () => {
             const RouteComponent = routeComponentMap[route];
             return (
               <Route key={`${route}-${i}`} exact path={`/${route}`}>
-                  <ContextProvider>
-                      <RouteComponent />
-                  </ContextProvider>
+                <ContextProvider>
+                  <RouteComponent />
+                </ContextProvider>
               </Route>
-              
+
             );
           })}
       </Switch>
