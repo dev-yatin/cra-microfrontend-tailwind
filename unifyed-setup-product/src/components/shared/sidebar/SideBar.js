@@ -66,7 +66,7 @@ export const SideBar = () => {
     {
       id: 3,
       parent: null,
-      name: "Formss",
+      name: "Forms",
       menuOrder: 1,
       visible: true,
       leafNode: false,
@@ -93,7 +93,7 @@ export const SideBar = () => {
         {
           id: 5,
           parent: null,
-          name: "Samole Form",
+          name: "Sample Form",
           menuOrder: 1,
           visible: true,
           leafNode: true,
@@ -112,7 +112,7 @@ export const SideBar = () => {
     {
       id: 2,
       parent: null,
-      name: "Settings",
+      name: "UserDetails",
       menuOrder: 1,
       visible: true,
       leafNode: true,
@@ -120,9 +120,9 @@ export const SideBar = () => {
       toolTip: null,
       accessComponentDTO: {
         id: 1,
-        description: "Settings",
-        componentName: "Sample",
-        componentPath: "/testt",
+        description: "UserDetails",
+        componentName: "UserDetails",
+        componentPath: "userdetail",
       },
       childItems: [],
     },

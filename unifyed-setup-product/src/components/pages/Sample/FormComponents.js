@@ -89,16 +89,27 @@ function FormComponents() {
       label: "Mobile Number",
       isRequired: false,
       readOnly: false,
-      spanXS: 12,
-      spanSM: 6,
       dialCodeType: "mobile",
       dialCode: `dialCode`,
       type: "select-mobile",
       options: [],
       defaultCountryCode: "us",
       enableCharCount: true,
-      chartCountMaxLimit: 10,
-      maxLength: 13,
+      chartCountMaxLimit: 17,
+      maxLength: 17,
+    },
+    {
+      name: "remarks",
+      textFieldName: "remarksText",
+      label: "Remarks",
+      isRequired: true,
+      type: "rich-text-input",
+      minRows: 4,
+      spanXS: 12,
+      spanSM: 12,
+      length: 2000,
+      enableCharCount: false,
+      readOnly: false,
     },
   ];
   const initialFormValues = {
@@ -113,6 +124,8 @@ function FormComponents() {
     dialCode: {
       mobile: "+1",
     },
+    remarksText: "",
+    remarks: "",
   };
   const formik = useFormik({
     initialValues: initialFormValues,
@@ -126,7 +139,7 @@ function FormComponents() {
   return (
     <>
       <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
-        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="mt-8 w-3/4 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
             <form
               className="space-y-6"

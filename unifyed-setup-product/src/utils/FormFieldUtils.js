@@ -5,7 +5,7 @@ import "react-phone-input-2/lib/style.css";
 import ContactInput from "./ContactInput";
 import CustomSingleSelect from "./CustomSingleSelect";
 import { MaskedInput } from "./MaskedInput";
-
+import RichTextInput from "./RichTextInput";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -282,6 +282,30 @@ const getFieldByType = (field, formik) => {
       );
     case "maskedInput":
       return <MaskedInput formik={formik} field={field} onEnter={onEnter} />;
+    case "rich-text-input":
+      const textLimt = 2000;
+      return (
+        <RichTextInput
+          id={`hello`}
+          textLimit={field?.length || textLimt}
+          value={getNestedObjectValue(formValues, field.name) || ""}
+          updateFormik={() => {
+            formik.setValues({ ...formik.values });
+          }}
+          onChange={(value, textValue) => {
+            formik.setFieldValue(field.name, value);
+            if (field.textFieldName) {
+              formik.setFieldValue(field.textFieldName, textValue);
+              formik.setFieldTouched(field.textFieldName, true);
+            }
+          }}
+          onBlur={() => {
+            formik.setFieldTouched(field.name, true);
+          }}
+          errorMessage={field?.errorMessage}
+        />
+      );
+
     case "select":
       return (
         <CustomSingleSelect formik={formik} field={field} onEnter={onEnter} />

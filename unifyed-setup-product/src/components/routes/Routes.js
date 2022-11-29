@@ -8,7 +8,7 @@ const routeComponentMap = {
   "": Sample,
   form: SampleForm,
   home: FormComponents,
-  userdetail:UserDetails
+  userdetail: UserDetails,
 };
 
 const navigations = [
@@ -46,7 +46,7 @@ const navigations = [
     },
     childItems: [],
   },
-   {
+  {
     id: 1,
     parent: null,
     name: "UserDetails",
@@ -63,7 +63,6 @@ const navigations = [
     },
     childItems: [],
   },
-
 ];
 
 const staticRoutes = { "": "Sample" };

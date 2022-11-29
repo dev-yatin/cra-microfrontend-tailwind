@@ -74,7 +74,7 @@ const ContactInput = ({ formik, field, onEnter }) => {
         inputProps={{
           name: `${field.name}-phone-input`,
           placeholder: "",
-          style: { color: "transparent" },
+          style: { color: "transparent", width: "100%", height: "38px" },
         }}
         onlyCountries={field.allowedCountryCodes}
         preferredCountries={[]}
@@ -139,7 +139,7 @@ const ContactInput = ({ formik, field, onEnter }) => {
           formik.setFieldValue(field.name, plainVal);
           onPhoneValueChange(plainVal, field.name);
         }}
-        className={`absolute top-0 z-10 bottom-0 left-[40px] w-[calc(100% - 112px)]`}
+        className={`absolute top-[1px] z-10 bottom-[2px] left-[40px] w-[calc(100%_-_42px)] focus:border-none border-none outline-none focus:outline-none `}
       />
     </div>
   );
