@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     setUser(userInfo);
     if (!userInfo) {
-      history.push("/test");
+      history.push("/home");
     }
   }, [history]);
 

@@ -7,7 +7,7 @@ import {
   analyticsIcon,
   dashboardIcon,
   hamburgerIcon,
-  settingIcon
+  settingIcon,
 } from "components/shared/SVGIcon/AppIcons";
 import useInvolvScreenSize from "hooks/useInvolvScreenSize";
 import { useRef } from "react";
@@ -15,13 +15,19 @@ import { useRef } from "react";
 const navigationMenu = [
   {
     name: "Dashboard",
-    href: "dashboard",
+    href: "/",
     icon: dashboardIcon,
     moduleName: "Branding",
   },
   {
     name: "Test",
-    href: "test",
+    href: "home",
+    icon: analyticsIcon,
+    moduleName: "analytics",
+  },
+  {
+    name: "Sample Form",
+    href: "form",
     icon: analyticsIcon,
     moduleName: "analytics",
   },
@@ -36,12 +42,13 @@ export default function InvolvTenantSidebar({}) {
   // const { userPermission, userProfile, tenant, setTenant } = useAuth();
   const [navigation, setNavigation] = useState(navigationMenu);
   const [show, setShow] = useState(false);
-  const [isSideBarVisible, setisSideBarVisible] = useState(true);
   const [isSettingVisible, setIsSettingVisible] = useState(true);
   const [toggleMobileSide, setToggleMobileSide] = useState(false);
   const wrapperRef = useRef(null);
   const { pathname } = useLocation();
   const [isMobile, isTabTwo] = useInvolvScreenSize();
+  const [isSideBarVisible, setisSideBarVisible] = useState(true);
+
   const handleSideBarVisibility = () => {
     setisSideBarVisible(!isSideBarVisible);
   };
@@ -269,7 +276,7 @@ export default function InvolvTenantSidebar({}) {
         >
           <div className="md:flex flex-col h-full">
             <div className="flex items-center justify-around pl-0 flex-row-reverse sm:flex-row sm:justify-center md:justify-around flex-shrink-0 px-3 py-3 2xl:px-4 2xl:py-4 z-30 cursor-pointer">
-              {/* {isSideBarVisible && (
+              {isSideBarVisible && (
                 <NavLink to="/" className=" md:inline-block cursor-pointer">
                   <img
                     className="h-8 2xl:h-10 w-auto contain"
@@ -277,7 +284,7 @@ export default function InvolvTenantSidebar({}) {
                     alt="Involv"
                   />
                 </NavLink>
-              )} */}
+              )}
               <div
                 className="h-4 w-5 2xl:h-7 2xl:w-7 cursor-pointer"
                 onClick={handleSideBarVisibility}
@@ -336,7 +343,7 @@ export default function InvolvTenantSidebar({}) {
               </nav>
             </div>
             {/* Footer */}
-            {/* {isSettingVisible && (
+            {isSettingVisible && (
               <div className="my-4 px-3 absolute bottom-0 w-full">
                 <NavLink
                   key="Settings"
@@ -376,7 +383,7 @@ export default function InvolvTenantSidebar({}) {
                   )}
                 </NavLink>
               </div>
-            )} */}
+            )}
           </div>
         </div>
       </div>

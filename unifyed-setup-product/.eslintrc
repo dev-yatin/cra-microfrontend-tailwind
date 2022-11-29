@@ -3,15 +3,15 @@
   "plugins": ["autofix", "unused-imports"],
   "rules": {
     "no-unused-vars": "off",
-    "react/self-closing-comp": ["error", { "component": true, "html": true }],
-    "autofix/no-unused-vars": [
-      "error",
-      {
-        "argsIgnorePattern": "^_",
-        "ignoreRestSiblings": true,
-        "destructuredArrayIgnorePattern": "^_"
-      }
-    ],
+    // "react/self-closing-comp": ["error", { "component": true, "html": true }],
+    // "autofix/no-unused-vars": [
+    //   "error",
+    //   {
+    //     "argsIgnorePattern": "^_",
+    //     "ignoreRestSiblings": true,
+    //     "destructuredArrayIgnorePattern": "^_"
+    //   }
+    // ],
     "no-restricted-imports": [
       "error",
       {

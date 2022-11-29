@@ -1,12 +1,14 @@
 import FormComponents from "components/pages/Sample/FormComponents";
 import Sample from "components/pages/Sample/Sample";
+import SampleForm from "components/pages/Sample/SampleForm";
+import UserDetails from "components/pages/UserDetails/UserDetails";
 import Layout from "components/shared/layout/Layout";
-
-import ContextProvider from "context/provider";
 import { Route, Switch } from "react-router-dom";
 const routeComponentMap = {
-  dashboard: Sample,
-  test: FormComponents,
+  "": Sample,
+  form: SampleForm,
+  home: FormComponents,
+  userdetail: UserDetails,
 };
 
 const navigations = [
@@ -23,13 +25,47 @@ const navigations = [
       id: 1,
       description: "FormComponents",
       componentName: "FormComponents",
-      componentPath: "test",
+      componentPath: "home",
+    },
+    childItems: [],
+  },
+  {
+    id: 1,
+    parent: null,
+    name: "Form",
+    menuOrder: 1,
+    visible: true,
+    leafNode: true,
+    logo: null,
+    toolTip: null,
+    accessComponentDTO: {
+      id: 1,
+      description: "SampleForm",
+      componentName: "SampleForm",
+      componentPath: "form",
+    },
+    childItems: [],
+  },
+  {
+    id: 1,
+    parent: null,
+    name: "UserDetails",
+    menuOrder: 1,
+    visible: true,
+    leafNode: true,
+    logo: null,
+    toolTip: null,
+    accessComponentDTO: {
+      id: 1,
+      description: "UserDetails",
+      componentName: "UserDetails",
+      componentPath: "userdetail",
     },
     childItems: [],
   },
 ];
 
-const staticRoutes = { dashboard: "Sample" };
+const staticRoutes = { "": "Sample" };
 const titles = {};
 const breadcrumbs = {};
 let breadcrumb = [];
@@ -71,20 +107,27 @@ const Routes = () => {
     ...getDynamicRoutes(navigations),
     ...staticRoutes,
   };
+
   return (
     <Layout>
       <Switch>
-
         {allRoutes &&
           Object.keys(allRoutes).map((route, i) => {
             const RouteComponent = routeComponentMap[route];
             return (
               <Route key={`${route}-${i}`} exact path={`/${route}`}>
+<<<<<<< HEAD
                 <ContextProvider>
                   <RouteComponent />
                 </ContextProvider>
               </Route>
 
+=======
+                {/* <ContextProvider> */}
+                <RouteComponent />
+                {/* </ContextProvider> */}
+              </Route>
+>>>>>>> d3418496e2cd39ed99092dc252d790286e57ea27
             );
           })}
       </Switch>
