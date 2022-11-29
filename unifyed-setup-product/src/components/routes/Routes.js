@@ -116,18 +116,10 @@ const Routes = () => {
             const RouteComponent = routeComponentMap[route];
             return (
               <Route key={`${route}-${i}`} exact path={`/${route}`}>
-<<<<<<< HEAD
-                <ContextProvider>
-                  <RouteComponent />
-                </ContextProvider>
-              </Route>
-
-=======
                 {/* <ContextProvider> */}
                 <RouteComponent />
                 {/* </ContextProvider> */}
               </Route>
->>>>>>> d3418496e2cd39ed99092dc252d790286e57ea27
             );
           })}
       </Switch>

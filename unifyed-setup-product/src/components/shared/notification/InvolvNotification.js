@@ -7,7 +7,7 @@ const Notification = (props) => {
         setShowMessage(status)
     }
     const position = props.position === "top" ? "top-10" : "bottom-10";
-    const displayClassName = `flex items-center p-4 mb-4 w-full max-w-xs text-white bg-green-500 rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 absolute right-5 ${position}`
+    const displayClassName = `flex items-center p-4 mb-4 w-full max-w-xs text-white bg-green-500 rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 z-40 fixed right-5 ${position}`
     return (
         <>
             {showMessage ? (

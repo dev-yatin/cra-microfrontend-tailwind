@@ -184,7 +184,7 @@ function FormComponents() {
           </div>
         </div>
       </div>
-      <Notification status="Logged in Successfully" position="bottom" />
+      <Notification status="Logged in Successfully" position="top" />
 
     </>
   );
