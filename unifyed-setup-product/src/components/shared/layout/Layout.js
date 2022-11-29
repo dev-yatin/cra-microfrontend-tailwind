@@ -1,19 +1,4 @@
 import InvolvTenantHeader from "components/shared/header/InvolvTenantHeader";
-<<<<<<< HEAD
-import InvolvTenantSidebar from "components/shared/sidebar/InvolvTenantSidebar";
-import { memo } from "react";
-import { withRouter } from "react-router";
-
-const Layout = ({ children }) => (
-
-  <div className="min-h-screen md:flex flex-row bg-gray-100 overflow-x-hidden overflow-y-hidden">
-    {/* {
-      AuthState.user ?  <InvolvTenantSidebar /> : ''
-    } */}
-    <InvolvTenantSidebar />
-    <div className="flex-1">
-      <InvolvTenantHeader children={children} />
-=======
 import { SideBar } from "components/shared/sidebar/SideBar";
 import { AuthState } from "context/AuthContext";
 import { memo, useEffect, useState } from "react";
@@ -56,7 +41,6 @@ const Layout = ({ children, location, history }) => {
           breadcrumbPathname={breadcrumbPathname}
         />
       </div>
->>>>>>> d3418496e2cd39ed99092dc252d790286e57ea27
     </div>
   );
 };

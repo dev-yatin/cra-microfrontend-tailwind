@@ -1,13 +1,10 @@
 // import { ExclamationCircleIcon } from "@heroicons/react/20/solid";
-<<<<<<< HEAD
 import Modal from "components/shared/modal/InvolvModal";
 import Notification from "components/shared/notification/InvolvNotification";
 import Spinner from "components/shared/spinner/InvolvSpinner";
-import React from "react";
-=======
 import { useFormik } from "formik";
+import React from "react";
 import { maskSSN } from "utils/FormatUtils";
->>>>>>> d3418496e2cd39ed99092dc252d790286e57ea27
 import getFieldByType from "utils/FormFieldUtils";
 import * as Yup from "yup";
 const validationSchema = Yup.object().shape({
@@ -18,14 +15,7 @@ const validationSchema = Yup.object().shape({
 });
 
 function FormComponents() {
-<<<<<<< HEAD
   const [showSpinner, setShowSpinner] = React.useState(false);
-  const field = {
-    type: "number",
-    name: "email",
-    lable: "Email",
-    readOnly: false,
-=======
   const fields = [
     {
       type: "text",
@@ -77,7 +67,7 @@ function FormComponents() {
       readOnly: false,
       spanXS: 12,
       spanSM: 6,
-      onChange: () => {},
+      onChange: () => { },
       options: [
         {
           value: true,
@@ -141,7 +131,6 @@ function FormComponents() {
     },
     remarksText: "",
     remarks: "",
->>>>>>> d3418496e2cd39ed99092dc252d790286e57ea27
   };
   const formik = useFormik({
     initialValues: initialFormValues,
