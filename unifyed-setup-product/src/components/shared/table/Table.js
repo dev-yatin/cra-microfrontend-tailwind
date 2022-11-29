@@ -1,5 +1,6 @@
-import React from "react";
-import {
+import { Dialog, Transition } from '@headlessui/react'
+import React, { Fragment, useState } from 'react'
+import  {
   useAsyncDebounce,
   useFilters,
   useGlobalFilter,
@@ -7,6 +8,7 @@ import {
   useSortBy,
   useTable,
 } from "react-table";
+import MyModal from "components/shared/Modal/modal";
 
 import { SortDownIcon, SortIcon, SortUpIcon } from "./Icons";
 import { classNames } from "./Utils";
@@ -109,7 +111,31 @@ export function AvatarCell({ value, column, row }) {
   );
 }
 
-function Table({ columns, data }) {
+function Table({ columns, data, modifyHeader }) {
+   let [isOpen, setIsOpen] = useState(false)
+   let [isSelectedValue, setIsSelectedValue] = useState([])
+  let [isTableUpdated, setTableUpdated] = useState(false)
+   function closeModal() {
+    setIsOpen(false)
+  }
+
+  function openModal() {
+    setIsOpen(true)
+  }
+  const selectHeader = (e) => {
+    if(isSelectedValue.includes(e.target.value) && !e.target.checked){
+      isSelectedValue = isSelectedValue.filter(item => item !== e.target.value)
+    }
+    else{
+      isSelectedValue.push(e.target.value);
+      setIsSelectedValue(isSelectedValue);
+    }    
+  }
+  const upDateHeader = () => {
+    const filteredData = columns.filter((item) => isSelectedValue.includes(item.Header));
+    modifyHeader(filteredData)
+    setIsOpen(false);
+  }
   // Use the state and functions returned from useTable to build your UI
   const {
     getTableProps,
@@ -157,7 +183,74 @@ function Table({ columns, data }) {
             ) : null
           )
         )}
+         <div>
+        <MyModal text="Filter Column" openModal={openModal}/>
       </div>
+      </div>
+     
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6 text-gray-900"
+                  >
+                    Select Header
+                  </Dialog.Title>
+                  <div className="mt-2">
+                    <p className="text-sm text-gray-500">
+                      {
+                        columns.map((item)=>{
+                          return (
+                            <>
+                            <input type="checkbox" name={item.Header} id={item.Header} value={item.Header} onClick={(e)=>selectHeader(e)} />
+                            &nbsp;&nbsp;{item.Header} <br/>
+                            </>
+                          )
+                        })
+                      }
+                    </p>
+                  </div>
+
+                  <div className="mt-4">
+                    <button
+                      type="button"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      onClick={upDateHeader}
+                    >
+                      Select Header
+                    </button>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+        
       {/* table */}
       <div className="mt-4 flex flex-col">
         <div className="-my-2 overflow-x-auto -mx-4 sm:-mx-6 lg:-mx-8">

@@ -1,4 +1,5 @@
 // import Table, { AvatarCell, SelectColumnFilter, StatusPill } from './Table'; // new
+import { useState } from "react";
 import Table, {
   AvatarCell,
   SelectColumnFilter,
@@ -80,7 +81,7 @@ const getData = () => {
 
 // This is the static header later on we will use header dynamically
 
-const columns = [
+let columns = [
   {
     Header: "Name",
     accessor: "name",
@@ -111,12 +112,15 @@ const columns = [
 const data = getData();
 
 const UserDetails = () => {
+  let [displayheader,setDisplayHeader] = useState(columns)
+  const modifyHeader = (headerData) => {
+    setDisplayHeader(headerData)
+  }
   return (
     <div className="min-h-screen text-gray-900">
       <main className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 pt-4">
-        <div className="">sjdhjsd</div>
         <div className="mt-6">
-          <Table columns={columns} data={data} />
+          <Table columns={displayheader} data={data} modifyHeader={(headerData)=>modifyHeader(headerData)} />
         </div>
       </main>
     </div>
