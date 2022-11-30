@@ -1,4 +1,5 @@
 // import { ExclamationCircleIcon } from "@heroicons/react/20/solid";
+import Alert from "components/shared/alert/Alert";
 import Modal from "components/shared/modal/InvolvModal";
 import Notification from "components/shared/notification/InvolvNotification";
 import Spinner from "components/shared/spinner/InvolvSpinner";
@@ -146,6 +147,7 @@ function FormComponents() {
   }
   return (
     <>
+      <Alert status="A simple primary alert." messageType="success" />
       <div className="flex justify-end">
         <Modal status={showSpinner} />
       </div>
@@ -184,8 +186,7 @@ function FormComponents() {
           </div>
         </div>
       </div>
-      <Notification status="Logged in Successfully" position="top" />
-
+      <Notification status="Logged in Successfully" message="success" />
     </>
   );
 }
