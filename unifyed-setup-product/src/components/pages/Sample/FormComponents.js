@@ -147,7 +147,7 @@ function FormComponents() {
   }
   return (
     <>
-      <Alert status="A simple primary alert." messageType="success" />
+      <Alert status="A simple primary alert." messageType="success" show={true} />
       <div className="flex justify-end">
         <Modal status={showSpinner} />
       </div>
