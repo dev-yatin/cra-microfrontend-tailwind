@@ -3,11 +3,16 @@ import { useFormik } from "formik";
 import { maskSSN } from "utils/FormatUtils";
 import getFieldByType from "utils/FormFieldUtils";
 import * as Yup from "yup";
+
 const validationSchema = Yup.object().shape({
   email: Yup.string()
     .email("Enter valid Email ID")
-    .max(50, "Email cannot exceed 50 characters!"),
+    .max(50, "Email cannot exceed 50 characters!")
+    .required("Enter Email "),
   password: Yup.string().required("Enter password "),
+  date: Yup.string().required("Enter Date "),
+  mobile: Yup.string().required("Enter phone "),
+  ssn: Yup.string().required("Enter SSN "),
 });
 
 function FormComponents() {

@@ -6,6 +6,12 @@ import {
 import { useEffect, useState } from "react";
 import { getNestedObjectValue } from "./common";
 
+/**
+ *
+ * @param {*} formik
+ * @param {object}field
+ * @returns a input field with user specific masking and format
+ */
 export const MaskedInput = ({ formik, field }) => {
   const {
     touched: formTouched,
@@ -30,13 +36,23 @@ export const MaskedInput = ({ formik, field }) => {
   }, [field, formValues]);
 
   const [show, setShow] = useState(false);
-
+  const isError =
+    !!getNestedObjectValue(formTouched, field.name) &&
+    !!getNestedObjectValue(formErrors, field.name);
   return (
     <div>
-      <div className="relative rounded-md border border-gray-700 px-3 py-2 shadow-sm focus-within:border-indigo-600 focus-within:ring-1 focus-within:ring-indigo-600">
+      <div
+        className={`relative rounded-md border  px-3 py-2 shadow-sm focus-within:ring-1  ${
+          isError
+            ? "border-red-600  ring-red-600"
+            : "border-gray-700 focus-within:border-indigo-600  focus-within:ring-indigo-600"
+        }`}
+      >
         <label
           htmlFor="name"
-          className="absolute -top-2 left-2 -mt-px inline-block bg-white px-1  text-sm font-medium text-gray-500"
+          className={`absolute -top-2 left-2 -mt-px inline-block bg-white px-1  text-sm font-medium  ${
+            isError ? "text-red-500" : "text-gray-500"
+          }`}
         >
           {field.label}
         </label>

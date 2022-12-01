@@ -36,16 +36,30 @@ const getFieldByType = (field, formik) => {
     values: formValues,
     errors: formErrors,
   } = formik;
+
+  const isError =
+    !!getNestedObjectValue(formTouched, field.name) &&
+    !!getNestedObjectValue(formErrors, field.name);
+
   switch (field.type) {
     case "text":
     case "number":
       return (
         <>
           <div key={field.name}>
-            <div className="relative rounded-md border border-gray-700 px-3 py-2 shadow-sm focus-within:border-indigo-600 focus-within:ring-1 focus-within:ring-indigo-600">
+            <div
+              className={`relative rounded-md border  px-3 py-2 shadow-sm focus-within:ring-1  ${
+                isError
+                  ? "border-red-600  ring-red-600"
+                  : "border-gray-700 focus-within:border-indigo-600  focus-within:ring-indigo-600"
+              }`}
+            >
               <label
                 htmlFor="name"
-                className="absolute -top-2 left-2 -mt-px inline-block bg-white px-1  text-sm font-medium text-gray-500"
+                className={`absolute -top-2 left-2 -mt-px inline-block bg-white px-1  text-sm font-medium  ${
+                  isError ? "text-red-500" : "text-gray-500"
+                }
+                  `}
               >
                 {field.label}
               </label>
@@ -86,22 +100,21 @@ const getFieldByType = (field, formik) => {
                 onKeyDown={() => onEnter(field.name, formik)}
               />
             </div>
-            {!!getNestedObjectValue(formTouched, field.name) &&
-              !!getNestedObjectValue(formErrors, field.name) && (
-                <div
-                  className=" flex mt-2 text-sm text-red-600"
-                  id={`${field.name}-error`}
-                >
-                  <ExclamationCircleIcon
-                    className="h-5 w-5 text-red-500"
-                    aria-hidden="true"
-                  />{" "}
-                  <p className="ml-1">
-                    {" "}
-                    {getNestedObjectValue(formErrors, field.name)}{" "}
-                  </p>
-                </div>
-              )}
+            {isError && (
+              <div
+                className=" flex mt-2 text-sm text-red-600"
+                id={`${field.name}-error`}
+              >
+                <ExclamationCircleIcon
+                  className="h-5 w-5 text-red-500"
+                  aria-hidden="true"
+                />{" "}
+                <p className="ml-1">
+                  {" "}
+                  {getNestedObjectValue(formErrors, field.name)}{" "}
+                </p>
+              </div>
+            )}
           </div>
         </>
       );
@@ -147,22 +160,21 @@ const getFieldByType = (field, formik) => {
               onKeyDown={() => onEnter(field.name, formik)}
             />
           </div>
-          {!!getNestedObjectValue(formTouched, field.name) &&
-            !!getNestedObjectValue(formErrors, field.name) && (
-              <div
-                className=" flex mt-2 text-sm text-red-600"
-                id={`${field.name}-error`}
-              >
-                <ExclamationCircleIcon
-                  className="h-5 w-5 text-red-500"
-                  aria-hidden="true"
-                />{" "}
-                <p className="ml-1">
-                  {" "}
-                  {getNestedObjectValue(formErrors, field.name)}{" "}
-                </p>
-              </div>
-            )}
+          {isError && (
+            <div
+              className=" flex mt-2 text-sm text-red-600"
+              id={`${field.name}-error`}
+            >
+              <ExclamationCircleIcon
+                className="h-5 w-5 text-red-500"
+                aria-hidden="true"
+              />{" "}
+              <p className="ml-1">
+                {" "}
+                {getNestedObjectValue(formErrors, field.name)}{" "}
+              </p>
+            </div>
+          )}
         </div>
       );
     case "maskedInput":
