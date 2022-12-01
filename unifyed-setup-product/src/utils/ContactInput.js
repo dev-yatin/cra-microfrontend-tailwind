@@ -139,7 +139,7 @@ const ContactInput = ({ formik, field, onEnter }) => {
           formik.setFieldValue(field.name, plainVal);
           onPhoneValueChange(plainVal, field.name);
         }}
-        className={`absolute top-[1px] z-10 bottom-[2px] left-[40px] w-[calc(100%_-_42px)] focus:border-none border-none outline-none focus:outline-none `}
+        className={`absolute top-[1px] bottom-[2px] left-[40px] w-[calc(100%_-_42px)] focus:border-none border-none outline-none focus:outline-none `}
       />
     </div>
   );

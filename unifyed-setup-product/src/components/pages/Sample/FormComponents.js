@@ -111,6 +111,13 @@ function FormComponents() {
       enableCharCount: false,
       readOnly: false,
     },
+    {
+      name: "date",
+      label: "Date",
+      isRequired: true,
+      type: "date",
+      readOnly: false,
+    },
   ];
   const initialFormValues = {
     email: "",
@@ -126,6 +133,7 @@ function FormComponents() {
     },
     remarksText: "",
     remarks: "",
+    date: "",
   };
   const formik = useFormik({
     initialValues: initialFormValues,
@@ -160,6 +168,7 @@ function FormComponents() {
               }}
             >
               {fields.map((field) => getFieldByType(field, formik))}
+
               <div>
                 <button
                   type="submit"
