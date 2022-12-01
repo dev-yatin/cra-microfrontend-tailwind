@@ -4,14 +4,14 @@
   "rules": {
     "no-unused-vars": "off",
     // "react/self-closing-comp": ["error", { "component": true, "html": true }],
-    "autofix/no-unused-vars": [
-      "error",
-      {
-        "argsIgnorePattern": "^_",
-        "ignoreRestSiblings": true,
-        "destructuredArrayIgnorePattern": "^_"
-      }
-    ],
+    // "autofix/no-unused-vars": [
+    //   "error",
+    //   {
+    //     "argsIgnorePattern": "^_",
+    //     "ignoreRestSiblings": true,
+    //     "destructuredArrayIgnorePattern": "^_"
+    //   }
+    // ],
     "no-restricted-imports": [
       "error",
       {
