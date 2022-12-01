@@ -3,6 +3,7 @@ import Sample from "components/pages/Sample/Sample";
 import SampleForm from "components/pages/Sample/SampleForm";
 import UserDetails from "components/pages/UserDetails/UserDetails";
 import Layout from "components/shared/layout/Layout";
+import ContextProvider from "context/provider";
 import { Route, Switch } from "react-router-dom";
 const routeComponentMap = {
   "": Sample,
@@ -116,9 +117,9 @@ const Routes = () => {
             const RouteComponent = routeComponentMap[route];
             return (
               <Route key={`${route}-${i}`} exact path={`/${route}`}>
-                {/* <ContextProvider> */}
+                <ContextProvider>
                 <RouteComponent />
-                {/* </ContextProvider> */}
+                </ContextProvider>
               </Route>
             );
           })}
