@@ -3,7 +3,6 @@ import Sample from "components/pages/Sample/Sample";
 import SampleForm from "components/pages/Sample/SampleForm";
 import UserDetails from "components/pages/UserDetails/UserDetails";
 import Layout from "components/shared/layout/Layout";
-import ContextProvider from "context/provider";
 import { Route, Switch } from "react-router-dom";
 const routeComponentMap = {
   "": Sample,
@@ -11,6 +10,8 @@ const routeComponentMap = {
   home: FormComponents,
   userdetail: UserDetails,
 };
+
+// This is for left navigations
 
 const navigations = [
   {
@@ -70,7 +71,13 @@ const staticRoutes = { "": "Sample" };
 const titles = {};
 const breadcrumbs = {};
 let breadcrumb = [];
-const getDynamicRoutes = (routes, initialRoute = {}) => {
+/**
+ *
+ * @param {*} routes
+ * @param {*} initialRoute
+ * @returns Object - {path:Componentname}
+ */
+const getDynamicRoutes = (routes = [], initialRoute = {}) => {
   if (routes) {
     // eslint-disable-next-line array-callback-return
     routes.map((r) => {
@@ -117,9 +124,9 @@ const Routes = () => {
             const RouteComponent = routeComponentMap[route];
             return (
               <Route key={`${route}-${i}`} exact path={`/${route}`}>
-                <ContextProvider>
+                {/* <ContextProvider> */}
                 <RouteComponent />
-                </ContextProvider>
+                {/* </ContextProvider> */}
               </Route>
             );
           })}
