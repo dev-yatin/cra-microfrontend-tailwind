@@ -11,7 +11,7 @@ const validationSchema = Yup.object().shape({
     .required("Enter Email "),
   password: Yup.string().required("Enter password "),
   date: Yup.string().required("Enter Date "),
-  mobile: Yup.string().required("Enter phone "),
+  mobile: Yup.string().required("Enter phone"),
   ssn: Yup.string().required("Enter SSN "),
 });
 
