@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 function FallBackUI() {
     const [test, setTest] = useState(false)
     let history = useHistory();
-    console.log(history, 'HISTOR')
     const handleClick = () => {
         history.push('/home');
     }

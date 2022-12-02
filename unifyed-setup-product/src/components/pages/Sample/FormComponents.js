@@ -158,9 +158,9 @@ function FormComponents() {
   const Login = (status) => {
     setShowSpinner(status)
   }
-  // if (1 === 2) {
-  //   throw new Error('Simulated error.');
-  // }
+  if (1 === 2) {
+    throw new Error('Simulated error.');
+  }
   return (
     <>
       <Alert status="A simple primary alert." messageType="warning" show={true} />

@@ -122,10 +122,10 @@ const UserDetails = () => {
   const modifyHeader = (headerData) => {
     setDisplayHeader(headerData)
   }
-  if (true) {
-    new Error('Simulated error.');
-    redirecTotHome(history)
-  }
+  // if (true) {
+  //   new Error('Simulated error.');
+  //   redirecTotHome(history)
+  // }
 };
 
 export default UserDetails;

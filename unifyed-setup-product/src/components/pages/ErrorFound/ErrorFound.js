@@ -1,7 +1,6 @@
 import { useHistory } from 'react-router-dom';
 function FoundError() {
     let history = useHistory();
-    console.log(history, 'HISTOR')
     const handleClick = () => {
         history.push('/home');
     }
