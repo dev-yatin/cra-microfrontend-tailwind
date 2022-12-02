@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-// different message type to display different alert/messages
+// three basic different messages type to display respective alert/messages
 // for Red = error!
 // for Yellow = warning!
 // for success = green!
