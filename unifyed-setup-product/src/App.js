@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import { baseTheme } from "themes";
 import { applyTheme } from "themes/utils";
 
+
 function App() {
   let history = useHistory();
   if (history.location.pathname === "/") {
