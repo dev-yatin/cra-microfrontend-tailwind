@@ -1,6 +1,7 @@
-import { Dialog, Transition } from '@headlessui/react'
-import React, { Fragment, useState } from 'react'
-import  {
+import { Dialog, Transition } from "@headlessui/react";
+import MyModal from "components/shared/Modal/modal";
+import React, { Fragment, useState } from "react";
+import {
   useAsyncDebounce,
   useFilters,
   useGlobalFilter,
@@ -8,7 +9,6 @@ import  {
   useSortBy,
   useTable,
 } from "react-table";
-import MyModal from "components/shared/Modal/modal";
 
 import { SortDownIcon, SortIcon, SortUpIcon } from "./Icons";
 import { classNames } from "./Utils";
@@ -112,30 +112,33 @@ export function AvatarCell({ value, column, row }) {
 }
 
 function Table({ columns, data, modifyHeader }) {
-   let [isOpen, setIsOpen] = useState(false)
-   let [isSelectedValue, setIsSelectedValue] = useState([])
-  let [isTableUpdated, setTableUpdated] = useState(false)
-   function closeModal() {
-    setIsOpen(false)
+  let [isOpen, setIsOpen] = useState(false);
+  let [isSelectedValue, setIsSelectedValue] = useState([]);
+  let [isTableUpdated, setTableUpdated] = useState(false);
+  function closeModal() {
+    setIsOpen(false);
   }
 
   function openModal() {
-    setIsOpen(true)
+    setIsOpen(true);
   }
   const selectHeader = (e) => {
-    if(isSelectedValue.includes(e.target.value) && !e.target.checked){
-      isSelectedValue = isSelectedValue.filter(item => item !== e.target.value)
-    }
-    else{
+    if (isSelectedValue.includes(e.target.value) && !e.target.checked) {
+      isSelectedValue = isSelectedValue.filter(
+        (item) => item !== e.target.value
+      );
+    } else {
       isSelectedValue.push(e.target.value);
       setIsSelectedValue(isSelectedValue);
-    }    
-  }
+    }
+  };
   const upDateHeader = () => {
-    const filteredData = columns.filter((item) => isSelectedValue.includes(item.Header));
-    modifyHeader(filteredData)
+    const filteredData = columns.filter((item) =>
+      isSelectedValue.includes(item.Header)
+    );
+    modifyHeader(filteredData);
     setIsOpen(false);
-  }
+  };
   // Use the state and functions returned from useTable to build your UI
   const {
     getTableProps,
@@ -183,11 +186,11 @@ function Table({ columns, data, modifyHeader }) {
             ) : null
           )
         )}
-         <div>
-        <MyModal text="Filter Column" openModal={openModal}/>
+        <div>
+          <MyModal text="Filter Column" openModal={openModal} />
+        </div>
       </div>
-      </div>
-     
+
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
@@ -222,16 +225,20 @@ function Table({ columns, data, modifyHeader }) {
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
-                      {
-                        columns.map((item)=>{
-                          return (
-                            <>
-                            <input type="checkbox" name={item.Header} id={item.Header} value={item.Header} onClick={(e)=>selectHeader(e)} />
-                            &nbsp;&nbsp;{item.Header} <br/>
-                            </>
-                          )
-                        })
-                      }
+                      {columns.map((item) => {
+                        return (
+                          <>
+                            <input
+                              type="checkbox"
+                              name={item.Header}
+                              id={item.Header}
+                              value={item.Header}
+                              onClick={(e) => selectHeader(e)}
+                            />
+                            &nbsp;&nbsp;{item.Header} <br />
+                          </>
+                        );
+                      })}
                     </p>
                   </div>
 
@@ -250,7 +257,7 @@ function Table({ columns, data, modifyHeader }) {
           </div>
         </Dialog>
       </Transition>
-        
+
       {/* table */}
       <div className="mt-4 flex flex-col">
         <div className="-my-2 overflow-x-auto -mx-4 sm:-mx-6 lg:-mx-8">

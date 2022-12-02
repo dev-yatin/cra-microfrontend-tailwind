@@ -8,12 +8,23 @@ import "react-datepicker/dist/react-datepicker.css";
 import { getNestedObjectValue } from "./common";
 import { formatDateMMDDYYYY } from "./FormatUtils";
 
+/**
+ * Custom Input for datepicker with calender icon
+ */
 const CustomInput = forwardRef((props, ref) => {
   return (
-    <div className="relative rounded-md border border-gray-700 px-3 py-2 shadow-sm focus-within:border-indigo-600 focus-within:ring-1 focus-within:ring-indigo-600">
+    <div
+      className={`relative rounded-md border  px-3 py-2 shadow-sm focus-within:ring-1  ${
+        props.isError
+          ? "border-red-600  ring-red-600"
+          : "border-gray-700 focus-within:border-indigo-600  focus-within:ring-indigo-600"
+      }`}
+    >
       <label
         htmlFor="name"
-        className="absolute -top-2 left-2 -mt-px inline-block bg-white px-1  text-sm font-medium text-gray-500"
+        className={`absolute -top-2 left-2 -mt-px inline-block bg-white px-1  text-sm font-medium  ${
+          props.isError ? "text-red-500" : "text-gray-500"
+        }`}
       >
         {props.field.label}
       </label>
@@ -33,12 +44,18 @@ const CustomInput = forwardRef((props, ref) => {
   );
 });
 
+/**
+ *
+ * @param {*} field
+ * @returns datepicker input field with a user specified format
+ */
 const DateInput = ({ field, formik }) => {
   const {
     touched: formTouched,
     values: formValues,
     errors: formErrors,
   } = formik;
+
   let date_regex = /^[0-1][0-9][-][0-3][0-9][-]\d{4}$/;
   const fieldId = field.name.split(".").join("-");
   let dateVal =
@@ -46,7 +63,13 @@ const DateInput = ({ field, formik }) => {
 
   const inputRef = useRef(null);
   const [value, setValue] = useState(null);
+  const isError =
+    !!getNestedObjectValue(formTouched, field.name) &&
+    !!getNestedObjectValue(formErrors, field.name);
 
+  /**
+   * set inital value of the field
+   */
   useEffect(() => {
     if (date_regex.test(dateVal) && dateVal) {
       setValue(new Date(dateVal));
@@ -94,7 +117,9 @@ const DateInput = ({ field, formik }) => {
             setValue(null);
           }
         }}
-        customInput={<CustomInput inputref={inputRef} field={field} />}
+        customInput={
+          <CustomInput inputref={inputRef} field={field} isError={isError} />
+        }
         onBlur={(evt) => {
           formik.handleBlur(evt);
           formik.setFieldTouched(field.name, true);
@@ -102,22 +127,21 @@ const DateInput = ({ field, formik }) => {
         minDate={field.minDate ? new Date(field.minDate) : undefined}
         maxDate={field.maxDate ? new Date(field.maxDate) : undefined}
       />
-      {!!getNestedObjectValue(formTouched, field.name) &&
-        !!getNestedObjectValue(formErrors, field.name) && (
-          <div
-            className=" flex mt-2 text-sm text-red-600"
-            id={`${field.name}-error`}
-          >
-            <ExclamationCircleIcon
-              className="h-5 w-5 text-red-500"
-              aria-hidden="true"
-            />{" "}
-            <p className="ml-1">
-              {" "}
-              {getNestedObjectValue(formErrors, field.name)}{" "}
-            </p>
-          </div>
-        )}
+      {isError && (
+        <div
+          className=" flex mt-2 text-sm text-red-600"
+          id={`${field.name}-error`}
+        >
+          <ExclamationCircleIcon
+            className="h-5 w-5 text-red-500"
+            aria-hidden="true"
+          />{" "}
+          <p className="ml-1">
+            {" "}
+            {getNestedObjectValue(formErrors, field.name)}{" "}
+          </p>
+        </div>
+      )}
     </div>
   );
 };
