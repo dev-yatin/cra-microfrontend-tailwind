@@ -1,3 +1,4 @@
+import FoundError from "components/pages/ErrorFound/ErrorFound";
 import FormComponents from "components/pages/Sample/FormComponents";
 import Sample from "components/pages/Sample/Sample";
 import SampleForm from "components/pages/Sample/SampleForm";
@@ -9,6 +10,7 @@ const routeComponentMap = {
   form: SampleForm,
   home: FormComponents,
   userdetail: UserDetails,
+  founderror: FoundError
 };
 
 const navigations = [
@@ -60,6 +62,23 @@ const navigations = [
       description: "UserDetails",
       componentName: "UserDetails",
       componentPath: "userdetail",
+    },
+    childItems: [],
+  },
+  {
+    id: 1,
+    parent: null,
+    name: "FoundError",
+    menuOrder: 1,
+    visible: true,
+    leafNode: true,
+    logo: null,
+    toolTip: null,
+    accessComponentDTO: {
+      id: 1,
+      description: "FoundError",
+      componentName: "FoundError",
+      componentPath: "founderror",
     },
     childItems: [],
   },

@@ -1,13 +1,10 @@
-import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-function FallBackUI() {
-    const [test, setTest] = useState(false)
+function FoundError() {
     let history = useHistory();
     console.log(history, 'HISTOR')
     const handleClick = () => {
         history.push('/home');
     }
-
     return (
         <>
             <div className="relative z-10 bg-cyan-600 py-[120px]">
@@ -28,7 +25,7 @@ function FallBackUI() {
                                 <p className="mb-8 text-lg text-white">
                                     The page you are looking for it maybe have some issue.
                                 </p>
-                                <button type="button" onClick={handleClick} className="inline-block rounded-lg border border-white px-8 py-3 text-center text-base font-semibold text-white transition hover:bg-white hover:text-black"
+                                <button type="button" onClick={() => handleClick()} className="inline-block rounded-lg border border-white px-8 py-3 text-center text-base font-semibold text-white transition hover:bg-white hover:text-black"
                                 >
                                     Go To Home
                                 </button>
@@ -60,4 +57,4 @@ function FallBackUI() {
     )
 }
 
-export default FallBackUI;
+export default FoundError;

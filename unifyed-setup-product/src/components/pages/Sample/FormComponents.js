@@ -145,9 +145,12 @@ function FormComponents() {
   const Login = (status) => {
     setShowSpinner(status)
   }
+  // if (1 === 2) {
+  //   throw new Error('Simulated error.');
+  // }
   return (
     <>
-      <Alert status="A simple primary alert." messageType="success" show={true} />
+      <Alert status="A simple primary alert." messageType="warning" show={true} />
       <div className="flex justify-end">
         <Modal status={showSpinner} />
       </div>

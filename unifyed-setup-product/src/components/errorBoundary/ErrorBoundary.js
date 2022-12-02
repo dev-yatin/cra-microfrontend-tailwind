@@ -1,5 +1,5 @@
+import FallBackUI from 'components/FallBackUI';
 import { Component } from 'react';
-// import FallBackUI from '../FallBackUI';
 
 class ErrorBoundary extends Component {
     constructor(props) {
@@ -15,8 +15,7 @@ class ErrorBoundary extends Component {
     }
     render() {
         if (this.state.hasError) {
-            // return <FallBackUI/>
-            return true
+            return <FallBackUI />
         }
         return this.props.children;
     }
