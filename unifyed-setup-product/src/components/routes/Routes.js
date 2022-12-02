@@ -4,13 +4,14 @@ import Sample from "components/pages/Sample/Sample";
 import SampleForm from "components/pages/Sample/SampleForm";
 import UserDetails from "components/pages/UserDetails/UserDetails";
 import Layout from "components/shared/layout/Layout";
+import ContextProvider from "context/provider";
 import { Route, Switch } from "react-router-dom";
 const routeComponentMap = {
   "": Sample,
   form: SampleForm,
   home: FormComponents,
   userdetail: UserDetails,
-  founderror: FoundError
+  founderror: FoundError,
 };
 
 // This is for left navigations
@@ -143,9 +144,9 @@ const Routes = () => {
             const RouteComponent = routeComponentMap[route];
             return (
               <Route key={`${route}-${i}`} exact path={`/${route}`}>
-                {/* <ContextProvider> */}
-                <RouteComponent />
-                {/* </ContextProvider> */}
+                <ContextProvider>
+                  <RouteComponent />
+                </ContextProvider>
               </Route>
             );
           })}

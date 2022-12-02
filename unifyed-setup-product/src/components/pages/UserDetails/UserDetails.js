@@ -1,3 +1,7 @@
+/**
+  User Details Component - This is the sample component to use React Table
+ */
+
 // import Table, { AvatarCell, SelectColumnFilter, StatusPill } from './Table'; // new
 import Table, {
   AvatarCell,

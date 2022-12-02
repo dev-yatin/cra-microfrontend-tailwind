@@ -1,3 +1,6 @@
+/**
+  This is the generic component for Table
+*/
 import { Dialog, Transition } from "@headlessui/react";
 import MyModal from "components/shared/modal/modal";
 import React, { Fragment, useState } from "react";
