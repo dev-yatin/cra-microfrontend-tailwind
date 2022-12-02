@@ -4,7 +4,7 @@ import Sample from "components/pages/Sample/Sample";
 import SampleForm from "components/pages/Sample/SampleForm";
 import UserDetails from "components/pages/UserDetails/UserDetails";
 import Layout from "components/shared/layout/Layout";
-import ContextProvider from "context/provider";
+// import ContextProvider from "context/provider";
 import { navigations } from "navigation";
 import { Route, Switch } from "react-router-dom";
 
@@ -55,9 +55,9 @@ const Routes = () => {
             const RouteComponent = routeComponentMap[route];
             return (
               <Route key={`${route}-${i}`} exact path={`/${route}`}>
-                <ContextProvider>
-                  <RouteComponent />
-                </ContextProvider>
+                {/* <ContextProvider> */}
+                <RouteComponent />
+                {/* </ContextProvider> */}
               </Route>
             );
           })}

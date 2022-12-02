@@ -1,5 +1,5 @@
 /**
-  This is the generic component for Table
+  This is the genericcomponents/shared/modal/modal
 */
 import { Dialog, Transition } from "@headlessui/react";
 import MyModal from "components/shared/modal/modal";
