@@ -1,7 +1,7 @@
 // import { ExclamationCircleIcon } from "@heroicons/react/20/solid";
 import { useFormik } from "formik";
-import { maskSSN } from "utils/FormatUtils";
-import getFieldByType from "utils/FormFieldUtils";
+import { maskSSN } from "utils/formUtils/FormatUtils";
+import getFieldByType from "utils/formUtils/FormFieldUtils";
 import * as Yup from "yup";
 
 const validationSchema = Yup.object().shape({
@@ -22,12 +22,18 @@ function FormComponents() {
       name: "email",
       label: "Email",
       readOnly: false,
+      maxLength: 50,
+      enableCharCount: true,
+      chartCountMaxLimit: 50,
     },
     {
       type: "text",
       name: "password",
       label: "Password",
       readOnly: false,
+      maxLength: 50,
+      enableCharCount: true,
+      chartCountMaxLimit: 50,
     },
     {
       type: "switch",
@@ -50,8 +56,14 @@ function FormComponents() {
       isRequired: false,
       type: "maskedInput",
       readOnly: false,
-      maxLength: 11,
       format: maskSSN,
+      enableCharCount: true,
+      maskValue: false,
+      // Note: This is total length including dash
+      maxLength: 11,
+      // Note: This is length excluding dash
+      chartCountMaxLimit: 9,
+      ignoreChars: ["-"],
     },
     {
       name: "check",
@@ -152,7 +164,7 @@ function FormComponents() {
   return (
     <>
       <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
-        <div className="mt-8 w-3/4 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="mt-auto w-3/4 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
             <form
               className="space-y-6"

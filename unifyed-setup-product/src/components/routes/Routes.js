@@ -3,99 +3,37 @@ import Sample from "components/pages/Sample/Sample";
 import SampleForm from "components/pages/Sample/SampleForm";
 import UserDetails from "components/pages/UserDetails/UserDetails";
 import Layout from "components/shared/layout/Layout";
+import { navigations } from "navigation";
 import { Route, Switch } from "react-router-dom";
+
+/**
+ * mapping routes with component
+ */
 const routeComponentMap = {
   "": Sample,
   form: SampleForm,
   home: FormComponents,
   userdetail: UserDetails,
 };
-
-const navigations = [
-  {
-    id: 1,
-    parent: null,
-    name: "FormComponents",
-    menuOrder: 1,
-    visible: true,
-    leafNode: true,
-    logo: null,
-    toolTip: null,
-    accessComponentDTO: {
-      id: 1,
-      description: "FormComponents",
-      componentName: "FormComponents",
-      componentPath: "home",
-    },
-    childItems: [],
-  },
-  {
-    id: 1,
-    parent: null,
-    name: "Form",
-    menuOrder: 1,
-    visible: true,
-    leafNode: true,
-    logo: null,
-    toolTip: null,
-    accessComponentDTO: {
-      id: 1,
-      description: "SampleForm",
-      componentName: "SampleForm",
-      componentPath: "form",
-    },
-    childItems: [],
-  },
-  {
-    id: 1,
-    parent: null,
-    name: "UserDetails",
-    menuOrder: 1,
-    visible: true,
-    leafNode: true,
-    logo: null,
-    toolTip: null,
-    accessComponentDTO: {
-      id: 1,
-      description: "UserDetails",
-      componentName: "UserDetails",
-      componentPath: "userdetail",
-    },
-    childItems: [],
-  },
-];
-
 const staticRoutes = { "": "Sample" };
-const titles = {};
-const breadcrumbs = {};
-let breadcrumb = [];
-const getDynamicRoutes = (routes, initialRoute = {}) => {
+
+/**
+ *
+ * @param {Array} routes
+ * @param {object} initialRoute
+ * @returns object with key as route and value as component name
+ */
+const getDynamicRoutes = (routes = [], initialRoute = {}) => {
   if (routes) {
     // eslint-disable-next-line array-callback-return
     routes.map((r) => {
       if (r?.leafNode) {
         initialRoute[r?.accessComponentDTO.componentPath] =
           r?.accessComponentDTO.componentName;
-        const routePath = `/${r?.accessComponentDTO.componentPath}`;
-        titles[routePath] = r?.name;
-        breadcrumb.push(r.name || "");
-        breadcrumbs[routePath] = [...breadcrumb];
-        breadcrumb.pop();
       } else {
-        if (breadcrumb.length > 0 && !!r.name) {
-          const findex = breadcrumb.findIndex((val) => val === r.name);
-          if (findex > -1) {
-            breadcrumb = breadcrumb.slice(0, findex);
-          } else {
-            breadcrumb.push(r.name || "");
-          }
-        } else {
-          breadcrumb.push(r.name || "");
-        }
         if (r?.childItems) {
           getDynamicRoutes(r?.childItems, initialRoute);
         }
-        breadcrumb.pop();
       }
     });
   }

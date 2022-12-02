@@ -1,8 +1,9 @@
-import InvolvTenantHeader from "components/shared/header/InvolvTenantHeader";
+import Header from "components/shared/header/Header";
 import { SideBar } from "components/shared/sidebar/SideBar";
 import { AuthState } from "context/AuthContext";
 import { memo, useEffect, useState } from "react";
 import { withRouter } from "react-router";
+
 const Layout = ({ children, location, history }) => {
   let pathname = location.pathname;
   const [breadcrumbPathname, setBreadcrumbPathname] = useState(pathname);
@@ -36,10 +37,7 @@ const Layout = ({ children, location, history }) => {
       {AuthState.user ? <SideBar /> : <SideBar />}
 
       <div className="flex-1">
-        <InvolvTenantHeader
-          children={children}
-          breadcrumbPathname={breadcrumbPathname}
-        />
+        <Header children={children} breadcrumbPathname={breadcrumbPathname} />
       </div>
     </div>
   );
