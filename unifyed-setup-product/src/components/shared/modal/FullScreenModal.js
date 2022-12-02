@@ -37,7 +37,7 @@ export default function FullScreenModal({ isOpen, onClose, title, children }) {
                   width="28px"
                   height="28px"
                   id={`${module}-closeIcon`}
-                  className="fill-white text-white"
+                  className="fill-white text-white cursor-pointer"
                 />
               </div>
             </header>

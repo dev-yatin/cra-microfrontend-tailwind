@@ -3,7 +3,12 @@ import { useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import ReactTooltip from "react-tooltip";
 
-export const SidebarItems = ({ item, isSideBarVisible }) => {
+/**
+ *
+ * @param {Array} item
+ * @returns sidebar Items
+ */
+export const SidebarItems = ({ item, isSideBarVisible = false }) => {
   // eslint-disable-next-line autofix/no-unused-vars
   const [open, setOpen] = useState(false);
   const history = useHistory();
@@ -27,6 +32,9 @@ export const SidebarItems = ({ item, isSideBarVisible }) => {
     }
   };
 
+  /**
+   * sidebar item component
+   */
   const content = (
     <div
       className={`${
@@ -70,6 +78,7 @@ export const SidebarItems = ({ item, isSideBarVisible }) => {
       )}
     </div>
   );
+
   return (
     <>
       {item.visible && content}

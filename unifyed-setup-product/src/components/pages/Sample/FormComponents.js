@@ -1,12 +1,11 @@
-// import { ExclamationCircleIcon } from "@heroicons/react/20/solid";
 import Alert from "components/shared/alert/Alert";
 import Modal from "components/shared/modal/InvolvModal";
 import Notification from "components/shared/notification/InvolvNotification";
 import Spinner from "components/shared/spinner/InvolvSpinner";
 import { useFormik } from "formik";
 import React from "react";
-import { maskSSN } from "utils/FormatUtils";
-import getFieldByType from "utils/FormFieldUtils";
+import { maskSSN } from "utils/formUtils/FormatUtils";
+import getFieldByType from "utils/formUtils/FormFieldUtils";
 import * as Yup from "yup";
 
 const validationSchema = Yup.object().shape({
@@ -28,12 +27,18 @@ function FormComponents() {
       name: "email",
       label: "Email",
       readOnly: false,
+      maxLength: 50,
+      enableCharCount: true,
+      chartCountMaxLimit: 50,
     },
     {
       type: "text",
       name: "password",
       label: "Password",
       readOnly: false,
+      maxLength: 50,
+      enableCharCount: true,
+      chartCountMaxLimit: 50,
     },
     {
       type: "switch",
@@ -56,8 +61,14 @@ function FormComponents() {
       isRequired: false,
       type: "maskedInput",
       readOnly: false,
-      maxLength: 11,
       format: maskSSN,
+      enableCharCount: true,
+      maskValue: false,
+      // Note: This is total length including dash
+      maxLength: 11,
+      // Note: This is length excluding dash
+      chartCountMaxLimit: 9,
+      ignoreChars: ["-"],
     },
     {
       name: "check",
@@ -157,19 +168,23 @@ function FormComponents() {
   });
 
   const Login = (status) => {
-    setShowSpinner(status)
-  }
-  if (1 === 2) {
-    throw new Error('Simulated error.');
-  }
+    setShowSpinner(status);
+  };
+  // if (1 === 2) {
+  //   throw new Error('Simulated error.');
+  // }
   return (
     <>
-      <Alert status="A simple primary alert." messageType="warning" show={true} />
+      <Alert
+        status="A simple primary alert."
+        messageType="warning"
+        show={true}
+      />
       <div className="flex justify-end">
         <Modal status={showSpinner} />
       </div>
       <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
-        <div className="mt-8 w-3/4 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="mt-auto w-3/4 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
             <form
               className="space-y-6"

@@ -1,5 +1,5 @@
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
-import { getNestedObjectValue } from "./common";
+import { getNestedObjectValue } from "utils/common";
 
 export default function CustomSingleSelect({ field, formik, onEnter }) {
   const {

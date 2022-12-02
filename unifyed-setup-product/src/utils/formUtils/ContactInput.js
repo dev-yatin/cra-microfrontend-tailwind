@@ -3,7 +3,7 @@ import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import { getNestedObjectValue } from "./common";
+import { getNestedObjectValue } from "utils/common";
 
 const getPhonePlainValue = (value, charsToRemove = ["-", " "]) => {
   let processValue = value.trim().split("");
