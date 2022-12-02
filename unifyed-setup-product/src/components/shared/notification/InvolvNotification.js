@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -39,4 +38,4 @@ const Notification = (props) => {
     );
 }
 
-export default memo(Notification);
+export default Notification;

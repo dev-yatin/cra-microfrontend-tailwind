@@ -1,5 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
-import MyModal from "components/shared/Modal/modal";
+import MyModal from "components/shared/modal/modal";
 import React, { Fragment, useState } from "react";
 import {
   useAsyncDebounce,

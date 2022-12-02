@@ -1,9 +1,4 @@
-
-
-export default function MyModal({text,openModal}) {
-
- 
-
+export default function MyModal({ text, openModal }) {
   return (
     <>
       <div>
@@ -15,7 +10,6 @@ export default function MyModal({text,openModal}) {
           {text}
         </button>
       </div>
-
-          </>
-  )
+    </>
+  );
 }

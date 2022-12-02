@@ -1,4 +1,5 @@
 // import Sample from "components/pages/Sample/Sample";
+import ErrorBoundary from "components/errorBoundary/ErrorBoundary";
 import Routes from "components/routes/Routes";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
@@ -17,7 +18,9 @@ function App() {
 
   return (
     <div className="h-screen">
-      <Routes />
+      <ErrorBoundary>
+        <Routes />
+      </ErrorBoundary>
     </div>
   );
 }
