@@ -26,7 +26,7 @@ export default function InvolvTenantHeader({ children, breadcrumbPathname }) {
     <main className="flex flex-col bg-gray-100 h-full ">
       <div
         className={
-          "fixed top-0 bg-white border-b border-gray-200 px-3 py-3 2xl:px-4 2xl:py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 w-full left-0 z-19 h-20"
+          "fixed top-0 bg-white border-b border-gray-200 px-3 py-3 2xl:px-4 2xl:py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 w-full left-0 h-20 z-10"
         }
       >
         <LoggedInMenu userProfile={{ fullName: "shubham" }} logout={() => {}} />

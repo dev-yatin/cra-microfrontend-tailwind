@@ -1,72 +1,35 @@
 import { Switch } from "@headlessui/react";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
-
 import "react-phone-input-2/lib/style.css";
+import { getNestedObjectValue } from "./common";
 import ContactInput from "./ContactInput";
 import CustomSingleSelect from "./CustomSingleSelect";
+import DateInput from "./DateInput";
 import { MaskedInput } from "./MaskedInput";
 import RichTextInput from "./RichTextInput";
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export function getNestedObjectValue(ob, nestedKeyName) {
-  const nestedKeys = nestedKeyName.split(".");
-  let val = { ...ob };
-  const arrayKeyRegex = /^(.*)\[(\d{1,})\]$/;
-  for (const key of nestedKeys) {
-    const matchKeyRegex = key.match(arrayKeyRegex);
-    if (val) {
-      if (matchKeyRegex) {
-        const arrKey = matchKeyRegex[1];
-        const index = parseInt(matchKeyRegex[2], 10);
-        if (typeof val === "object") {
-          let newMatchRegex = arrKey.match(arrayKeyRegex);
-          if (
-            !newMatchRegex &&
-            arrKey in val &&
-            Array.isArray(val[arrKey]) &&
-            !isNaN(index)
-          ) {
-            val = val[arrKey][index];
-          } else if (newMatchRegex) {
-            // Handling 2 level of nesting
-            const strKey = newMatchRegex[1];
-            const preIndex = parseInt(newMatchRegex[2], 10);
-            if (
-              !isNaN(preIndex) &&
-              strKey in val &&
-              Array.isArray(val[strKey])
-            ) {
-              val = val[strKey]?.[preIndex]?.[index];
-            } else {
-              return null;
-            }
-          } else {
-            return null;
-          }
-        } else {
-          return null;
-        }
-      } else {
-        if (val && typeof val === "object" && key in val) {
-          val = val[key];
-        } else {
-          return null;
-        }
-      }
-    } else {
-      return null;
-    }
-  }
-  return val;
-}
+/**
+ * handles onEnter method
+ * @param {string} fieldName
+ * @param {*} formik
+ */
 const onEnter = (fieldName, formik) => (evt) => {
   if ((evt.charCode || evt.keyCode) === 13) {
     formik.handleBlur(evt);
     formik.setFieldTouched(fieldName, true);
   }
 };
+
+/**
+ *
+ * @param {object} field
+ * @param {*} formik
+ * @returns input type component based on field type
+ */
 const getFieldByType = (field, formik) => {
   const {
     touched: formTouched,
@@ -96,7 +59,7 @@ const getFieldByType = (field, formik) => {
                 aria-describedby={field.label}
                 required={field?.required || false}
                 disabled={field?.readOnly}
-                maxLength={field.maxLength}
+                maxlength={field.maxlength}
                 minLength={field.minLength}
                 autoComplete={field.autocomplete || "off"}
                 value={getNestedObjectValue(formValues, field.name) ?? ""}
@@ -163,7 +126,7 @@ const getFieldByType = (field, formik) => {
               required={field?.required || false}
               disabled={field?.readOnly}
               minLength={field.minLength}
-              maxLength={field.maxLength}
+              maxlength={field.maxlength}
               autoComplete={field.autocomplete || "off"}
               value={getNestedObjectValue(formValues, field.name) || ""}
               onChange={(evt) => {
@@ -201,6 +164,31 @@ const getFieldByType = (field, formik) => {
               </div>
             )}
         </div>
+      );
+    case "maskedInput":
+      return <MaskedInput formik={formik} field={field} onEnter={onEnter} />;
+    case "rich-text-input":
+      const textLimt = 2000;
+      return (
+        <RichTextInput
+          id={`hello`}
+          textLimit={field?.length || textLimt}
+          value={getNestedObjectValue(formValues, field.name) || ""}
+          updateFormik={() => {
+            formik.setValues({ ...formik.values });
+          }}
+          onChange={(value, textValue) => {
+            formik.setFieldValue(field.name, value);
+            if (field.textFieldName) {
+              formik.setFieldValue(field.textFieldName, textValue);
+              formik.setFieldTouched(field.textFieldName, true);
+            }
+          }}
+          onBlur={() => {
+            formik.setFieldTouched(field.name, true);
+          }}
+          errorMessage={field?.errorMessage}
+        />
       );
     case "switch":
       const status = getNestedObjectValue(formValues, field.name) || false;
@@ -252,6 +240,54 @@ const getFieldByType = (field, formik) => {
           </Switch.Group>
         </div>
       );
+    case "status-switch":
+      const isActive = getNestedObjectValue(formValues, field.name) || false;
+      return (
+        <div key={field.name}>
+          <label
+            htmlFor={field.name}
+            className="block text-sm font-medium text-gray-500"
+          >
+            {field.label}
+          </label>
+          <Switch.Group as="div" className="flex items-center">
+            <Switch.Label as="span" className="mr-3" passive>
+              <span className="text-sm font-medium text-gray-900">Active</span>
+            </Switch.Label>
+            <Switch
+              checked={isActive}
+              onChange={
+                field.readOnly
+                  ? () => {}
+                  : (evt) => {
+                      if (!!field.handleChange) {
+                        field.handleChange(evt);
+                      } else {
+                        formik.setFieldValue(field.name, evt);
+                      }
+                    }
+              }
+              className={classNames(
+                !!isActive ? "bg-indigo-600" : "bg-gray-200",
+                "relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none"
+              )}
+            >
+              <span
+                aria-hidden="true"
+                className={classNames(
+                  !!isActive ? "translate-x-5" : "translate-x-0",
+                  "pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+                )}
+              />
+            </Switch>
+            <Switch.Label as="span" className="ml-3" passive>
+              <span className="text-sm font-medium text-gray-900">
+                InActive
+              </span>
+            </Switch.Label>
+          </Switch.Group>
+        </div>
+      );
     case "checkbox":
       return (
         <div className="relative flex items-start">
@@ -280,39 +316,14 @@ const getFieldByType = (field, formik) => {
           </div>
         </div>
       );
-    case "maskedInput":
-      return <MaskedInput formik={formik} field={field} onEnter={onEnter} />;
-    case "rich-text-input":
-      const textLimt = 2000;
-      return (
-        <RichTextInput
-          id={`hello`}
-          textLimit={field?.length || textLimt}
-          value={getNestedObjectValue(formValues, field.name) || ""}
-          updateFormik={() => {
-            formik.setValues({ ...formik.values });
-          }}
-          onChange={(value, textValue) => {
-            formik.setFieldValue(field.name, value);
-            if (field.textFieldName) {
-              formik.setFieldValue(field.textFieldName, textValue);
-              formik.setFieldTouched(field.textFieldName, true);
-            }
-          }}
-          onBlur={() => {
-            formik.setFieldTouched(field.name, true);
-          }}
-          errorMessage={field?.errorMessage}
-        />
-      );
-
     case "select":
       return (
         <CustomSingleSelect formik={formik} field={field} onEnter={onEnter} />
       );
     case "select-mobile":
       return <ContactInput field={field} formik={formik} onEnter={onEnter} />;
-
+    case "date":
+      return <DateInput field={field} formik={formik} onEnter={onEnter} />;
     default:
       return <></>;
   }
