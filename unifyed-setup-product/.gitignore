@@ -23,3 +23,13 @@ yarn-debug.log*
 yarn-error.log*
 .vscode
 .eslintrc
+
+# yarn v2
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+yarn.lock
+
+package-lock.json
