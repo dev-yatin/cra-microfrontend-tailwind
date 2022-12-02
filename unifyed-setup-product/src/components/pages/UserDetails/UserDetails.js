@@ -114,26 +114,25 @@ const data = getData();
 const UserDetails = () => {
   let [displayheader, setDisplayHeader] = useState(columns);
   const modifyHeader = (headerData) => {
-    setDisplayHeader(headerData)
-  }
+    setDisplayHeader(headerData);
+  };
   // if (true) {
   //   new Error('Simulated error.');
   //   redirecTotHome(history)
   // }
-};
-return (
-  <div className="min-h-screen text-gray-900">
-    <main className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 pt-4">
-      <div className="mt-6">
-        <Table
-          columns={displayheader}
-          data={data}
-          modifyHeader={(headerData) => modifyHeader(headerData)}
-        />
-      </div>
-    </main>
-  </div>
-);
+  return (
+    <div className="min-h-screen text-gray-900">
+      <main className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <div className="mt-6">
+          <Table
+            columns={displayheader}
+            data={data}
+            modifyHeader={(headerData) => modifyHeader(headerData)}
+          />
+        </div>
+      </main>
+    </div>
+  );
 };
 
 export default UserDetails;
