@@ -1,4 +1,4 @@
-import FullScreenModal from "components/shared/Modal/FullScreenModal";
+import FullScreenModal from "components/shared/modal/FullScreenModal";
 import { useState } from "react";
 
 function SampleForm() {

@@ -1,5 +1,9 @@
-// import { ExclamationCircleIcon } from "@heroicons/react/20/solid";
+import Alert from "components/shared/alert/Alert";
+import Modal from "components/shared/modal/InvolvModal";
+import Notification from "components/shared/notification/InvolvNotification";
+import Spinner from "components/shared/spinner/InvolvSpinner";
 import { useFormik } from "formik";
+import React from "react";
 import { maskSSN } from "utils/formUtils/FormatUtils";
 import getFieldByType from "utils/formUtils/FormFieldUtils";
 import * as Yup from "yup";
@@ -16,6 +20,7 @@ const validationSchema = Yup.object().shape({
 });
 
 function FormComponents() {
+  const [showSpinner, setShowSpinner] = React.useState(false);
   const fields = [
     {
       type: "text",
@@ -156,13 +161,28 @@ function FormComponents() {
     initialValues: initialFormValues,
     validationSchema: validationSchema,
     onSubmit: (data) => {
+      // On Success API Call
       console.log("here", data);
     },
     enableReinitialize: true,
   });
 
+  const Login = (status) => {
+    setShowSpinner(status);
+  };
+  // if (1 === 2) {
+  //   throw new Error('Simulated error.');
+  // }
   return (
     <>
+      <Alert
+        status="A simple primary alert."
+        messageType="warning"
+        show={true}
+      />
+      <div className="flex justify-end">
+        <Modal status={showSpinner} />
+      </div>
       <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="mt-auto w-3/4 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
@@ -189,15 +209,17 @@ function FormComponents() {
               <div>
                 <button
                   type="submit"
+                  onClick={() => Login(true)}
                   className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
-                  Sign in
+                  {showSpinner && <Spinner />} Sign in
                 </button>
               </div>
             </form>
           </div>
         </div>
       </div>
+      <Notification status="Logged in Successfully" message="success" />
     </>
   );
 }

@@ -1,10 +1,14 @@
+/**
+  User Details Component - This is the sample component to use React Table
+ */
+
 // import Table, { AvatarCell, SelectColumnFilter, StatusPill } from './Table'; // new
-import { useState } from "react";
 import Table, {
   AvatarCell,
   SelectColumnFilter,
   StatusPill,
 } from "components/shared/table/Table";
+import { useState } from "react";
 // This is the static data , later on we will take this from API and pass using props
 
 const getData = () => {
@@ -112,15 +116,19 @@ let columns = [
 const data = getData();
 
 const UserDetails = () => {
-  let [displayheader,setDisplayHeader] = useState(columns)
+  let [displayheader, setDisplayHeader] = useState(columns);
   const modifyHeader = (headerData) => {
-    setDisplayHeader(headerData)
-  }
+    setDisplayHeader(headerData);
+  };
   return (
     <div className="min-h-screen text-gray-900">
       <main className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 pt-4">
         <div className="mt-6">
-          <Table columns={displayheader} data={data} modifyHeader={(headerData)=>modifyHeader(headerData)} />
+          <Table
+            columns={displayheader}
+            data={data}
+            modifyHeader={(headerData) => modifyHeader(headerData)}
+          />
         </div>
       </main>
     </div>
