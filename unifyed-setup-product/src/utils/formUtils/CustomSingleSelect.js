@@ -53,7 +53,7 @@ export default function CustomSingleSelect({ field, formik, onEnter }) {
         <select
           id={field.name}
           name={field.name}
-          className="block w-full px-1 border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm  focus:outline-none"
+          className="block w-full px-1 border-0 p-0 form-select appearance-none ease-in-out text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm  focus:outline-none"
           value={
             field.formatValue
               ? field.formatValue(`${selectValue}`)
