@@ -1,11 +1,11 @@
-import { useFormik } from "formik";
-import React from "react";
-import { maskSSN } from "utils/formUtils/FormatUtils";
-import getFieldByType from "utils/formUtils/FormFieldUtils";
 import Alert from "components/shared/alert/Alert";
 import Modal from "components/shared/modal/InvolvModal";
 import Notification from "components/shared/notification/InvolvNotification";
 import Spinner from "components/shared/spinner/InvolvSpinner";
+import { useFormik } from "formik";
+import React from "react";
+import { maskSSN } from "utils/formUtils/FormatUtils";
+import getFieldByType from "utils/formUtils/FormFieldUtils";
 import * as Yup from "yup";
 
 const validationSchema = Yup.object().shape({
@@ -52,6 +52,7 @@ function FormComponents() {
       type: "textarea",
       name: "comments",
       label: "Commnets",
+      enableCharCount: true,
       rows: 4,
       readOnly: false,
     },

@@ -15,7 +15,7 @@ const CustomInput = forwardRef((props, ref) => {
   return (
     <div
       className={`relative rounded-md border  px-3 py-2 shadow-sm focus-within:ring-1  ${
-        !!props?.iserror
+        props?.iserror
           ? "border-red-600  ring-red-600"
           : "border-gray-700 focus-within:border-indigo-600  focus-within:ring-indigo-600"
       }`}
@@ -23,7 +23,7 @@ const CustomInput = forwardRef((props, ref) => {
       <label
         htmlFor="name"
         className={`absolute -top-2 left-2 -mt-px inline-block bg-white px-1  text-sm font-medium  ${
-          !!props?.iserror ? "text-red-500" : "text-gray-500"
+          props?.iserror ? "text-red-500" : "text-gray-500"
         }`}
       >
         {props.field.label}
@@ -118,11 +118,7 @@ const DateInput = ({ field, formik }) => {
           }
         }}
         customInput={
-          <CustomInput
-            inputref={inputRef}
-            field={field}
-            iserror={isError.toString()}
-          />
+          <CustomInput inputref={inputRef} field={field} iserror={isError} />
         }
         onBlur={(evt) => {
           formik.handleBlur(evt);

@@ -173,62 +173,97 @@ const getFieldByType = (field, formik) => {
         </>
       );
     case "textarea":
-      return (
-        <div key={field.name}>
-          <label
-            htmlFor={field.name}
-            className="block text-sm font-medium text-gray-700"
-          >
-            {field.label}
-          </label>
-          <div className="mt-1">
-            <textarea
-              name={field.name}
-              id={field.name}
-              key={field.name}
-              className="block w-full resize-none rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-              placeholder={field.placeholder}
-              aria-describedby={field.label}
-              rows={field.rows || 4}
-              disabled={field?.readOnly}
-              minLength={field.minLength}
-              maxlength={field.maxlength}
-              autoComplete={field.autocomplete || "off"}
-              value={getNestedObjectValue(formValues, field.name) || ""}
-              onChange={(evt) => {
-                if (field.readOnly) {
-                  return false;
-                }
-                let value = evt.target.value;
-                if (value.trim() === "") {
-                  value = value.trim();
-                }
-                if (field.format) {
-                  evt.target.value = field.format(value);
-                } else {
-                  evt.target.value = value;
-                }
-                formik.handleChange(evt);
-              }}
-              onKeyDown={() => onEnter(field.name, formik)}
-            />
-          </div>
-          {isError && (
-            <div
-              className=" flex mt-2 text-sm text-red-600"
-              id={`${field.name}-error`}
-            >
-              <ExclamationCircleIcon
-                className="h-5 w-5 text-red-500"
-                aria-hidden="true"
-              />{" "}
-              <p className="ml-1">
-                {" "}
-                {getNestedObjectValue(formErrors, field.name)}{" "}
-              </p>
-            </div>
-          )}
+      const textareaField = (onCharCountChange, setShowCharCount) => (
+        <div className="mt-1">
+          <textarea
+            name={field.name}
+            id={field.name}
+            key={field.name}
+            className="block w-full resize-none rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            placeholder={field.placeholder}
+            aria-describedby={field.label}
+            rows={field.rows || 4}
+            disabled={field?.readOnly}
+            minLength={field.minLength}
+            maxlength={field.maxlength}
+            autoComplete={field.autocomplete || "off"}
+            onFocus={() => {
+              setShowCharCount && setShowCharCount(true);
+            }}
+            onBlur={(evt) => {
+              setShowCharCount && setShowCharCount(false);
+              formik.handleBlur(evt);
+            }}
+            value={getNestedObjectValue(formValues, field.name) || ""}
+            onChange={(evt) => {
+              if (field.readOnly) {
+                return false;
+              }
+              let value = evt.target.value;
+              let trimmedValue = evt.target.value.trim();
+              if (trimmedValue === "") {
+                value = trimmedValue;
+              }
+              if (field.format) {
+                evt.target.value = field.format(value);
+              } else {
+                evt.target.value = value;
+              }
+              onCharCountChange &&
+                onCharCountChange(
+                  getFilteredString(
+                    trimmedValue === "" ? "" : evt.target.value,
+                    field.ignoreChars
+                  ).length
+                );
+              formik.handleChange(evt);
+            }}
+            onKeyDown={() => onEnter(field.name, formik)}
+          />
         </div>
+      );
+      return (
+        <>
+          <div key={field.name}>
+            <label
+              htmlFor={field.name}
+              className="block text-sm font-medium text-gray-700"
+            >
+              {field.label}
+            </label>
+            {!!field.enableCharCount ? (
+              <div className="relative">
+                <InputCharCount
+                  maxLimit={field.chartCountMaxLimit || 50}
+                  initialCount={
+                    getNestedObjectValue(formik.values, field.name) || 0
+                  }
+                >
+                  {(onCharCountChange, setShowCharCount) =>
+                    textareaField(onCharCountChange, setShowCharCount)
+                  }
+                </InputCharCount>
+              </div>
+            ) : (
+              textareaField()
+            )}
+            {isError && (
+              <div
+                className=" flex mt-2 text-sm text-red-600"
+                id={`${field.name}-error`}
+              >
+                <ExclamationCircleIcon
+                  className="h-5 w-5 text-red-500"
+                  aria-hidden="true"
+                />{" "}
+                <p className="ml-1">
+                  {" "}
+                  {getNestedObjectValue(formErrors, field.name)}{" "}
+                </p>
+              </div>
+            )}
+          </div>
+        </>
       );
     case "maskedInput":
       return <MaskedInput formik={formik} field={field} onEnter={onEnter} />;
