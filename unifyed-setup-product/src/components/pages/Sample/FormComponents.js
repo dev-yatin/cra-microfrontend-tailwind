@@ -53,6 +53,7 @@ function FormComponents() {
       type: "textarea",
       name: "comments",
       label: "Commnets",
+      enableCharCount: true,
       rows: 4,
       readOnly: false,
     },
