@@ -1,4 +1,4 @@
-import FoundError from "components/pages/ErrorFound/ErrorFound";
+import ErrorFound from "components/pages/ErrorFound/ErrorFound";
 import FormComponents from "components/pages/Sample/FormComponents";
 import Sample from "components/pages/Sample/Sample";
 import SampleForm from "components/pages/Sample/SampleForm";
@@ -16,7 +16,7 @@ const routeComponentMap = {
   form: SampleForm,
   home: FormComponents,
   userdetail: UserDetails,
-  founderror: FoundError,
+  founderror: ErrorFound,
 };
 
 /**

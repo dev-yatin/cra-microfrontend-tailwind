@@ -1,8 +1,8 @@
 import { useHistory } from 'react-router-dom';
-function FoundError() {
+function ErrorFound() {
     let history = useHistory();
     const handleClick = () => {
-        history.push('/home');
+        history.push('/form');
     }
     return (
         <>
@@ -56,4 +56,4 @@ function FoundError() {
     )
 }
 
-export default FoundError;
+export default ErrorFound;

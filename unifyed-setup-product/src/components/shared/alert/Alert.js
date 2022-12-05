@@ -1,10 +1,11 @@
 import { useState } from "react"
 
-// three basic different messages type to display respective alert/messages
-// for Red = error!
-// for Yellow = warning!
-// for success = green!
-
+/* 
+ * three basic different messages type to display respective alert/messages
+ * for Red = error!
+ * for Yellow = warning!
+ * for success = green!
+*/
 const Alert = (props) => {
     const [showAlert, setShowAlert] = useState(false)
     setTimeout(() => {

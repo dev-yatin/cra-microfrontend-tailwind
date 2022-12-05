@@ -79,4 +79,21 @@ export const navigations = [
     },
     childItems: [],
   },
+  {
+    id: 3,
+    parent: null,
+    name: "ErrorFound",
+    menuOrder: 1,
+    visible: true,
+    leafNode: true,
+    logo: null,
+    toolTip: null,
+    accessComponentDTO: {
+      id: 1,
+      description: "ErrorFound",
+      componentName: "ErrorFound",
+      componentPath: "founderror",
+    },
+    childItems: [],
+  },
 ];

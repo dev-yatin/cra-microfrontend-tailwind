@@ -80,6 +80,7 @@ const getData = () => {
         "https://images.unsplash.com/photo-1566492031773-4f4e44671857?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
     },
   ];
+
   return [...data, ...data, ...data];
 };
 
@@ -120,9 +121,13 @@ const UserDetails = () => {
   const modifyHeader = (headerData) => {
     setDisplayHeader(headerData);
   };
-  // if (true) {
+  // const redirecToHome = () => {
+  //   history.push('/home')
+  // }
+  // const history = useHistory();
+  // if (1 === 1) {
   //   new Error('Simulated error.');
-  //   redirecTotHome(history)
+  //   redirecToHome(history)
   // }
   return (
     <div className="min-h-screen text-gray-900">

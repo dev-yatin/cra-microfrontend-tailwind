@@ -2,10 +2,12 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Notification = (props) => {
-    // different method type to display different alert/messages
-    // for toast.error = error!
-    // for toast.warning = warning!
-    // for toast.success = green!
+    /* 
+     * different method type to display different alert/messages
+     * for toast.error = error!
+     * for toast.warning = warning!
+     * for toast.success = green!
+    */
     let methodType = props.message;
     let toastType = "";
     const displayToast = () => {

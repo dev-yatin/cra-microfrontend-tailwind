@@ -1,7 +1,5 @@
-import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-function FallBackUI() {
-    const [test, setTest] = useState(false)
+function FallBackUI(props) {
     let history = useHistory();
     const handleClick = () => {
         history.push('/home');
