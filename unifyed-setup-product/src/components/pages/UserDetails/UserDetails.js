@@ -10,7 +10,6 @@ import Table, {
 } from "components/shared/table/Table";
 import { useState } from "react";
 // This is the static data , later on we will take this from API and pass using props
-
 const getData = () => {
   const data = [
     {
@@ -121,14 +120,6 @@ const UserDetails = () => {
   const modifyHeader = (headerData) => {
     setDisplayHeader(headerData);
   };
-  // const redirecToHome = () => {
-  //   history.push('/home')
-  // }
-  // const history = useHistory();
-  // if (1 === 1) {
-  //   new Error('Simulated error.');
-  //   redirecToHome(history)
-  // }
   return (
     <div className="min-h-screen text-gray-900">
       <main className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 pt-4">

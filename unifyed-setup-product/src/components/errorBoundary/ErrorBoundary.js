@@ -6,7 +6,8 @@ class ErrorBoundary extends Component {
         super(props)
         this.state = {
             hasError: false,
-            error: ""
+            error: null,
+            errorInfo: null
         }
     }
     static getDerivedStateFromError(error) {
@@ -19,13 +20,14 @@ class ErrorBoundary extends Component {
         console.log("Error: " + error);
         console.log("Error Info: " + errorInfo)
         this.setState({
-            error: error
+            error: error,
+            errorInfo: errorInfo
         })
     }
     render() {
-        console.log(this.state, 'STATE')
+        console.log(this.state.error, 'STATE')
         if (this.state.hasError) {
-            return <FallBackUI founderror={this.state.error} />
+            return <FallBackUI />
         }
         return this.props.children;
     }

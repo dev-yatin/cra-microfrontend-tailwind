@@ -96,4 +96,21 @@ export const navigations = [
     },
     childItems: [],
   },
+  {
+    id: 4,
+    parent: null,
+    name: "FormComponents",
+    menuOrder: 1,
+    visible: true,
+    leafNode: true,
+    logo: null,
+    toolTip: null,
+    accessComponentDTO: {
+      id: 1,
+      description: "FormComponents",
+      componentName: "FormComponents",
+      componentPath: "home",
+    },
+    childItems: [],
+  },
 ];

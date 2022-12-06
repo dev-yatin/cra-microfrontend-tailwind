@@ -4,7 +4,6 @@ import Notification from "components/shared/notification/InvolvNotification";
 import Spinner from "components/shared/spinner/InvolvSpinner";
 import { useFormik } from "formik";
 import React from "react";
-import { useHistory } from 'react-router-dom';
 import { maskSSN } from "utils/formUtils/FormatUtils";
 import getFieldByType from "utils/formUtils/FormFieldUtils";
 import * as Yup from "yup";
@@ -172,14 +171,14 @@ function FormComponents() {
   const Login = (status) => {
     setShowSpinner(status);
   };
-  const redirecToHome = () => {
-    history.push('/founderror')
-  }
-  const history = useHistory();
-  if (1 === 1) {
-    new Error('Simulated error.');
-    redirecToHome(history)
-  }
+  // const redirecToHome = () => {
+  //   history.push('/home')
+  // }
+  // const history = useHistory();
+  // if (1 === 1) {
+  //   new Error('Simulated error.');
+  //   redirecToHome(history)
+  // }
   return (
     <>
       <Alert

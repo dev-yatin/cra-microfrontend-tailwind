@@ -2,7 +2,7 @@ import { useHistory } from 'react-router-dom';
 function ErrorFound() {
     let history = useHistory();
     const handleClick = () => {
-        history.push('/form');
+        history.push('/home');
     }
     return (
         <>
