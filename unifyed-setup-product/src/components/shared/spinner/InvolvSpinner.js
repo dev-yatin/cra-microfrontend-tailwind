@@ -1,4 +1,8 @@
-
+/**
+ * Loader -  Generic loader component
+ * @Author - Ravi Kumar
+ * @Created Date - 30/11/2022
+*/
 const Spinner = () => {
     return (
         <div className="inline-block">

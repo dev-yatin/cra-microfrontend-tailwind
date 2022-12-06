@@ -17,15 +17,12 @@ class ErrorBoundary extends Component {
     }
     componentDidCatch(error, errorInfo) {
         // You can also log the error to an error reporting service
-        console.log("Error: " + error);
-        console.log("Error Info: " + errorInfo)
         this.setState({
             error: error,
             errorInfo: errorInfo
         })
     }
     render() {
-        console.log(this.state.error, 'STATE')
         if (this.state.hasError) {
             return <FallBackUI />
         }

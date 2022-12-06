@@ -1,8 +1,11 @@
 
-/*
+/**
  * Generic image tag
  * received all attributes through props 
+ * @Author - Ravi Kumar
+ * @Created Date - 6/12/2022
 */
+
 import NoImg from 'assets/no-photo.png';
 
 const Images = (props) => {

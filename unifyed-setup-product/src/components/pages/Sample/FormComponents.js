@@ -183,7 +183,7 @@ function FormComponents() {
     <>
       <Alert
         status="A simple primary alert."
-        messageType="warning"
+        messageType="success"
         show={true}
       />
       <div className="flex justify-end">

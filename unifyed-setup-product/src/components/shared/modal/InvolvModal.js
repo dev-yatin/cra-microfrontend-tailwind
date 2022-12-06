@@ -1,13 +1,19 @@
 
 
 
-// generic modal for confirmation like yes/no for any events occured or crud operation
-
+/**
+ * Generic modal for confirmation - yes/no for any events occured or crud operation
+ * @Author - Ravi Kumar
+ * @Created Date - 25/11/2022
+*/
 import React from "react";
 
 const Modal = ({ status }) => {
     const [showModal, setShowModal] = React.useState(status);
 
+    /**
+     * Method to show/hide modal 
+     */
     const handleModal = () => {
         setShowModal(false);
     };

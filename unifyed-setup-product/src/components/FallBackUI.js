@@ -1,10 +1,11 @@
-import { useHistory } from 'react-router-dom';
-function FallBackUI(props) {
-    let history = useHistory();
-    const handleClick = () => {
-        history.push('/home');
-    }
 
+/**
+ * Fall Back UI
+ * @Author - Ravi Kumar
+ * @Created Date - 1/12/2022
+*/
+
+function FallBackUI(props) {
     return (
         <>
             <div className="relative z-10 bg-cyan-600 py-[120px]">
@@ -25,7 +26,7 @@ function FallBackUI(props) {
                                 <p className="mb-8 text-lg text-white">
                                     The page you are looking for it maybe have some issue.
                                 </p>
-                                <button type="button" onClick={handleClick} className="inline-block rounded-lg border border-white px-8 py-3 text-center text-base font-semibold text-white transition hover:bg-white hover:text-black"
+                                <button type="button" className="inline-block rounded-lg border border-white px-8 py-3 text-center text-base font-semibold text-white transition hover:bg-white hover:text-black"
                                 >
                                     Go To Home
                                 </button>
