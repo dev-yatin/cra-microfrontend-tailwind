@@ -11,6 +11,7 @@ import { Route, Switch } from "react-router-dom";
 /**
  * mapping routes with component
  */
+
 const routeComponentMap = {
   "": Sample,
   form: SampleForm,
@@ -54,6 +55,21 @@ const Routes = () => {
           Object.keys(allRoutes).map((route, i) => {
             const RouteComponent = routeComponentMap[route];
             return (
+              // <Route
+              //   exact
+              //   path={`/${route}`}
+              //   key={`${route}-${i}`}
+              //   render={() => (
+              //     <ErrorBoundary
+              //       FallbackComponent={ErrorFallback}
+              //       onReset={() => console.log("testtest")}
+              //       onError={myErrorHandler}
+              //       key={`${route}-${i}`}
+              //     >
+              //       <RouteComponent />
+              //     </ErrorBoundary>
+              //   )}
+              // />
               <Route key={`${route}-${i}`} exact path={`/${route}`}>
                 {/* <ContextProvider> */}
                 <RouteComponent />
