@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   CalendarIcon,
   ExclamationCircleIcon,
 } from "@heroicons/react/24/outline";
-import { forwardRef, useEffect, useRef, useState } from "react";
+import { forwardRef, useEffect, useMemo, useRef, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { getNestedObjectValue } from "utils/common";
@@ -56,10 +57,13 @@ const DateInput = ({ field, formik }) => {
     errors: formErrors,
   } = formik;
 
+  const fieldError = getNestedObjectValue(formErrors, field.name);
+  const fieldTouched = getNestedObjectValue(formTouched, field.name);
+  const fieldValue = getNestedObjectValue(formValues, field.name);
+
   let date_regex = /^[0-1][0-9][-][0-3][0-9][-]\d{4}$/;
   const fieldId = field.name.split(".").join("-");
-  let dateVal =
-    field.selectedDate || getNestedObjectValue(formValues, field.name);
+  let dateVal = field.selectedDate || fieldValue;
 
   const inputRef = useRef(null);
   const [value, setValue] = useState(null);
@@ -80,74 +84,81 @@ const DateInput = ({ field, formik }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dateVal]);
 
-  return (
-    <div>
-      <DatePicker
-        id={`${fieldId}`}
-        label={field.label}
-        name={field.name}
-        dateFormat={`MM${field.dateSeperator || "-"}dd${
-          field.dateSeperator || "-"
-        }yyyy`}
-        placeholderText={`MM${field.dateSeperator || "-"}DD${
-          field.dateSeperator || "-"
-        }YYYY`}
-        closeOnScroll={true}
-        autoFocus={false}
-        disabled={field.readonly}
-        allowSameDay={true}
-        showMonthDropdown
-        showYearDropdown
-        autoComplete="off"
-        selected={value}
-        onChange={(date) => {
-          formik.setFieldTouched(field.name, true);
-          const formatedDate = formatDateMMDDYYYY(date, field.dateSeperator);
-          setValue(date);
-          if (date_regex.test(formatedDate)) {
-            formik.setFieldValue(field.name, formatedDate);
-            if (field.setSelectedDate) {
-              field.setSelectedDate(date);
+  return useMemo(() => {
+    return (
+      <div>
+        <DatePicker
+          id={`${fieldId}`}
+          label={field.label}
+          name={field.name}
+          dateFormat={`MM${field.dateSeperator || "-"}dd${
+            field.dateSeperator || "-"
+          }yyyy`}
+          placeholderText={`MM${field.dateSeperator || "-"}DD${
+            field.dateSeperator || "-"
+          }YYYY`}
+          closeOnScroll={true}
+          autoFocus={false}
+          disabled={field.readonly}
+          allowSameDay={true}
+          showMonthDropdown
+          showYearDropdown
+          autoComplete="off"
+          selected={value}
+          onChange={(date) => {
+            formik.setFieldTouched(field.name, true);
+            const formatedDate = formatDateMMDDYYYY(date, field.dateSeperator);
+            setValue(date);
+            if (date_regex.test(formatedDate)) {
+              formik.setFieldValue(field.name, formatedDate);
+              if (field.setSelectedDate) {
+                field.setSelectedDate(date);
+              }
+              if (field.handleDateChange) {
+                field.handleDateChange(field.id, date);
+              }
+            } else {
+              formik.setFieldValue(field.name, "");
+              setValue(null);
             }
-            if (field.handleDateChange) {
-              field.handleDateChange(field.id, date);
-            }
-          } else {
-            formik.setFieldValue(field.name, "");
-            setValue(null);
+          }}
+          customInput={
+            <CustomInput
+              inputref={inputRef}
+              field={field}
+              iserror={isError.toString()}
+            />
           }
-        }}
-        customInput={
-          <CustomInput
-            inputref={inputRef}
-            field={field}
-            iserror={isError.toString()}
-          />
-        }
-        onBlur={(evt) => {
-          formik.handleBlur(evt);
-          formik.setFieldTouched(field.name, true);
-        }}
-        minDate={field.minDate ? new Date(field.minDate) : undefined}
-        maxDate={field.maxDate ? new Date(field.maxDate) : undefined}
-      />
-      {isError && (
-        <div
-          className=" flex mt-2 text-sm text-red-600"
-          id={`${field.name}-error`}
-        >
-          <ExclamationCircleIcon
-            className="h-5 w-5 text-red-500"
-            aria-hidden="true"
-          />{" "}
-          <p className="ml-1">
-            {" "}
-            {getNestedObjectValue(formErrors, field.name)}{" "}
-          </p>
-        </div>
-      )}
-    </div>
-  );
+          onBlur={(evt) => {
+            formik.handleBlur(evt);
+            formik.setFieldTouched(field.name, true);
+          }}
+          minDate={field.minDate ? new Date(field.minDate) : undefined}
+          maxDate={field.maxDate ? new Date(field.maxDate) : undefined}
+        />
+        {isError && (
+          <div
+            className=" flex mt-2 text-sm text-red-600"
+            id={`${field.name}-error`}
+          >
+            <ExclamationCircleIcon
+              className="h-5 w-5 text-red-500"
+              aria-hidden="true"
+            />{" "}
+            <p className="ml-1"> {fieldError}</p>
+          </div>
+        )}
+      </div>
+    );
+  }, [
+    fieldError,
+    value,
+    fieldValue,
+    fieldTouched,
+    isError,
+    field.minDate,
+    field.maxDate,
+  ]);
 };
 
 export default DateInput;

@@ -4,7 +4,7 @@ import {
   EyeSlashIcon,
 } from "@heroicons/react/24/outline";
 import InputCharCount from "components/shared/InputCharCount";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getFilteredString, getNestedObjectValue } from "utils/common";
 
 /**
@@ -19,14 +19,13 @@ export const MaskedInput = ({ formik = {}, field = {} }) => {
     values: formValues,
     errors: formErrors,
   } = formik;
+  const fieldError = getNestedObjectValue(formErrors, field.name);
+  const fieldTouched = getNestedObjectValue(formTouched, field.name);
+  const fieldValue = getNestedObjectValue(formValues, field.name);
 
-  const [maskedValue, setMaskedValue] = useState(
-    getNestedObjectValue(formValues, field.name) || ""
-  );
+  const [maskedValue, setMaskedValue] = useState(fieldValue || "");
   const [unmaskedValue, setUnmaskedValue] = useState(
-    field.format
-      ? field.format(getNestedObjectValue(formValues, field.name), true)
-      : ""
+    field.format ? field.format(fieldValue, true) : ""
   );
   useEffect(() => {
     setUnmaskedValue(
@@ -138,41 +137,50 @@ export const MaskedInput = ({ formik = {}, field = {} }) => {
     </div>
   );
 
-  return (
-    <div>
-      {!!field.enableCharCount ? (
-        <div className="relative">
-          <InputCharCount
-            maxLimit={field.chartCountMaxLimit || 9}
-            initialCount={
-              getNestedObjectValue(formik.values, field.name)?.length || 0
-            }
-            right="45px"
-          >
-            {(onCharCountChange, setShowCharCount) =>
-              maskedField(onCharCountChange, setShowCharCount)
-            }
-          </InputCharCount>
+  return useMemo(
+    () => {
+      return (
+        <div>
+          {!!field.enableCharCount ? (
+            <div className="relative">
+              <InputCharCount
+                maxLimit={field.chartCountMaxLimit || 9}
+                initialCount={fieldValue?.length || 0}
+                right="45px"
+              >
+                {(onCharCountChange, setShowCharCount) =>
+                  maskedField(onCharCountChange, setShowCharCount)
+                }
+              </InputCharCount>
+            </div>
+          ) : (
+            maskedField()
+          )}
+          {isError && (
+            <div
+              className=" flex mt-2 text-sm text-red-600"
+              id={`${field.name}-error`}
+            >
+              <ExclamationCircleIcon
+                className="h-5 w-5 text-red-500"
+                aria-hidden="true"
+              />{" "}
+              <p className="ml-1"> {fieldError} </p>
+            </div>
+          )}
         </div>
-      ) : (
-        maskedField()
-      )}
-      {!!getNestedObjectValue(formTouched, field.name) &&
-        !!getNestedObjectValue(formErrors, field.name) && (
-          <div
-            className=" flex mt-2 text-sm text-red-600"
-            id={`${field.name}-error`}
-          >
-            <ExclamationCircleIcon
-              className="h-5 w-5 text-red-500"
-              aria-hidden="true"
-            />{" "}
-            <p className="ml-1">
-              {" "}
-              {getNestedObjectValue(formErrors, field.name)}{" "}
-            </p>
-          </div>
-        )}
-    </div>
+      );
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [
+      show,
+      field.options,
+      isError,
+      maskedValue,
+      unmaskedValue,
+      fieldValue,
+      fieldError,
+      fieldTouched,
+    ]
   );
 };
