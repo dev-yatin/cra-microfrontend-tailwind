@@ -9,6 +9,7 @@ import Table, {
   StatusPill,
 } from "components/shared/table/Table";
 import { useState } from "react";
+
 // This is the static data , later on we will take this from API and pass using props
 
 const getData = () => {

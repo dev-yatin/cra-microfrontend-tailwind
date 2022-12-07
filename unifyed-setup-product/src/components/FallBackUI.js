@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, withRouter } from "react-router-dom";
+
 function FallBackUI() {
   const [test, setTest] = useState(false);
-  let history = useHistory();
+  let history = useHistory({ forceRefresh: true });
   const handleClick = () => {
     history.push("/home");
   };
@@ -48,4 +49,4 @@ function FallBackUI() {
   );
 }
 
-export default FallBackUI;
+export default withRouter(FallBackUI);
