@@ -1,7 +1,6 @@
 
 /**
- * Generic image tag
- * received all attributes through props 
+ * Generic image - Generic component for images
  * @Author - Ravi Kumar
  * @Created Date - 6/12/2022
 */
