@@ -80,8 +80,6 @@ const DateInput = ({ field, formik }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dateVal]);
 
-  console.log(typeof isError, "here");
-
   return (
     <div>
       <DatePicker

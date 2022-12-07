@@ -1,6 +1,6 @@
 import FullScreenModal from "components/shared/modal/FullScreenModal";
 import { useState } from "react";
-
+import SampleApi from "./SampleApi";
 function SampleForm() {
   const [valueChange, setValueChange] = useState("");
   const [valueSubmit, setValueSubmit] = useState("");
@@ -43,6 +43,7 @@ function SampleForm() {
         <p>Submit Value: {valueSubmit}</p>
         <br />
       </div>
+      <SampleApi />
       <FullScreenModal isOpen={isOpen} onClose={closeModal} title="Add Data" />
     </>
   );
