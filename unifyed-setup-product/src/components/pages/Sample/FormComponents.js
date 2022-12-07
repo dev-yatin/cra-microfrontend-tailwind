@@ -2,9 +2,9 @@
 import axios from "axios";
 import Modal from "components/shared/modal/InvolvModal";
 import Notification from "components/shared/notification/InvolvNotification";
-import Spinner from "components/shared/spinner/InvolvSpinner";
 import { useFormik } from "formik";
 import React from "react";
+import { maskSSN } from "utils/formUtils/FormatUtils";
 import getFieldByType from "utils/formUtils/FormFieldUtils";
 import * as Yup from "yup";
 
@@ -14,6 +14,7 @@ const validationSchema = Yup.object().shape({
     .max(50, "Email cannot exceed 50 characters!")
     .required("Enter Email "),
   password: Yup.string().required("Enter password "),
+  teaching: Yup.string().required("Select IsUser"),
   date: Yup.string().required("Enter Date "),
   mobile: Yup.string().required("Enter phone"),
   ssn: Yup.string().required("Enter SSN "),
@@ -113,57 +114,55 @@ function FormComponents({ addmode = false }) {
     //   rows: 4,
     //   readOnly: false,
     // },
-    // {
-    //   name: "ssn",
-    //   label: "SSN",
-    //   isRequired: false,
-    //   type: "maskedInput",
-    //   readOnly: false,
-    //   format: maskSSN,
-    //   enableCharCount: true,
-    //   maskValue: false,
-    //   // Note: This is total length including dash
-    //   maxLength: 11,
-    //   // Note: This is length excluding dash
-    //   chartCountMaxLimit: 9,
-    //   ignoreChars: ["-"],
-    // },
+    {
+      name: "ssn",
+      label: "SSN",
+      isRequired: false,
+      type: "maskedInput",
+      readOnly: false,
+      format: maskSSN,
+      enableCharCount: true,
+      maskValue: false,
+      // Note: This is total length including dash
+      maxLength: 11,
+      // Note: This is length excluding dash
+      chartCountMaxLimit: 9,
+      ignoreChars: ["-"],
+    },
     // {
     //   name: "check",
     //   label: "check",
     //   type: "checkbox",
     //   readOnly: false,
     // },
-    // {
-    //   name: "teaching",
-    //   label: "Identifier",
-    //   isRequired: false,
-    //   type: "select",
-    //   readOnly: false,
-    //   spanXS: 12,
-    //   spanSM: 6,
-    //   onChange: () => {},
-    //   options: [
-    //     {
-    //       value: true,
-    //       component: (
-    //         <>
-    //           <span>YES</span>
-    //         </>
-    //       ),
-    //       name: "teaching",
-    //     },
-    //     {
-    //       value: false,
-    //       component: (
-    //         <>
-    //           <span>NO</span>
-    //         </>
-    //       ),
-    //       name: "teaching",
-    //     },
-    //   ],
-    // },
+    {
+      name: "teaching",
+      label: "Identifier",
+      isRequired: false,
+      type: "select",
+      readOnly: false,
+      onChange: () => { },
+      options: [
+        {
+          value: true,
+          component: (
+            <>
+              <span>YES</span>
+            </>
+          ),
+          name: "teaching",
+        },
+        {
+          value: false,
+          component: (
+            <>
+              <span>NO</span>
+            </>
+          ),
+          name: "teaching",
+        },
+      ],
+    },
     {
       name: "mobile",
       label: "Mobile Number",
@@ -199,8 +198,8 @@ function FormComponents({ addmode = false }) {
       readOnly: false,
     },
     {
-      name: "teaching",
-      label: "Identifier",
+      name: "users",
+      label: "Users",
       isRequired: false,
       type: "multi-select",
       readOnly: false,
@@ -220,6 +219,7 @@ function FormComponents({ addmode = false }) {
     ssn: "",
     check: "",
     teaching: "",
+    users: [],
     moiile: "",
     dialCode: {
       mobile: "+1",
@@ -241,14 +241,6 @@ function FormComponents({ addmode = false }) {
   const Login = (status) => {
     setShowSpinner(status);
   };
-  // const redirecToHome = () => {
-  //   history.push('/home')
-  // }
-  // const history = useHistory();
-  // if (1 === 1) {
-  //   new Error('Simulated error.');
-  //   redirecToHome(history)
-  // }
   return (
     <>
       {/* <Alert
