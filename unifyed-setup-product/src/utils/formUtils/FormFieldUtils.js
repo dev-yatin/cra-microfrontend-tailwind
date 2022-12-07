@@ -4,6 +4,7 @@ import InputCharCount from "components/shared/InputCharCount";
 import "react-phone-input-2/lib/style.css";
 import { getFilteredString, getNestedObjectValue } from "utils/common";
 import ContactInput from "./ContactInput";
+import CustomMultiSelect from "./CustomMultiSelect";
 import CustomSingleSelect from "./CustomSingleSelect";
 import DateInput from "./DateInput";
 import { MaskedInput } from "./MaskedInput";
@@ -419,6 +420,10 @@ const getFieldByType = (field, formik) => {
     case "select":
       return (
         <CustomSingleSelect formik={formik} field={field} onEnter={onEnter} />
+      );
+    case "multi-select":
+      return (
+        <CustomMultiSelect formik={formik} field={field} onEnter={onEnter} />
       );
     case "select-mobile":
       return <ContactInput field={field} formik={formik} onEnter={onEnter} />;
