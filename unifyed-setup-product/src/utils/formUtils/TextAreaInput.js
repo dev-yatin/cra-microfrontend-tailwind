@@ -92,7 +92,9 @@ export default function TextAreaInput({ field, formik, onEnter }) {
           <div key={field.name}>
             <label
               htmlFor={field.name}
-              className="block text-sm font-medium text-gray-700"
+              className={`block text-sm font-medium  ${
+                isError ? "text-red-500  " : "text-gray-700"
+              }`}
             >
               {field.label}
             </label>
