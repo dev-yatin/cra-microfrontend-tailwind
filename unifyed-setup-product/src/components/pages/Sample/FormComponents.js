@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
+import Button from "components/shared/button/Button";
 import Modal from "components/shared/modal/InvolvModal";
 import Notification from "components/shared/notification/InvolvNotification";
 import { useFormik } from "formik";
@@ -22,6 +23,7 @@ const validationSchema = Yup.object().shape({
 
 function FormComponents({ addmode = false }) {
   const [showSpinner, setShowSpinner] = React.useState(false);
+  const [buttonStatus, setButtonStatus] = React.useState(true);
   const [options, setOptions] = React.useState([]);
   const [loading, setIsLoading] = React.useState(false);
 
@@ -240,6 +242,7 @@ function FormComponents({ addmode = false }) {
 
   const Login = (status) => {
     setShowSpinner(status);
+    setButtonStatus(true)
   };
   const description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
   return (
@@ -274,14 +277,7 @@ function FormComponents({ addmode = false }) {
               {fields.map((field) => getFieldByType(field, formik))}
 
               <div>
-                <button
-                  type="submit"
-                  onClick={() => Login(true)}
-                  className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                  {/* {showSpinner && <Spinner width={6} height={6} />}  */}
-                  Sign in
-                </button>
+                <Button btnTitle="Sign In" py="2" px="4" bgColor="black" textColor="white" fontSize="sm" onClick={() => Login(true)} buttonStatus={false} />
               </div>
             </form>
           </div>
