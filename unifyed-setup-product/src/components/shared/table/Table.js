@@ -2,8 +2,11 @@
   This is the genericcomponents/shared/modal/modal
 */
 import { Dialog, Transition } from "@headlessui/react";
+
 import MyModal from "components/shared/modal/modal";
 import React, { Fragment, useState } from "react";
+
+import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import {
   useAsyncDebounce,
   useFilters,
@@ -12,7 +15,7 @@ import {
   useSortBy,
   useTable,
 } from "react-table";
-
+import { Button, PageButton } from "./Button";
 import { SortDownIcon, SortIcon, SortUpIcon } from "./Icons";
 import { classNames } from "./Utils";
 // Define a default UI for filtering
@@ -152,8 +155,13 @@ function Table({ columns, data, modifyHeader }) {
     // which has only the rows for the active page
 
     // The rest of these things are super handy, too ;)
-
+    canPreviousPage,
+    canNextPage,
     pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
 
     setPageSize,
 
@@ -226,11 +234,11 @@ function Table({ columns, data, modifyHeader }) {
                   >
                     Select Header
                   </Dialog.Title>
-                  <div className="mt-2">
-                    <p className="text-sm text-gray-500">
+                  <div className="mt-2" key={Math.random}>
+                    <p className="text-sm text-gray-500" key={Math.random}>
                       {columns.map((item) => {
                         return (
-                          <>
+                          <div key={Math.random}>
                             <input
                               type="checkbox"
                               name={item.Header}
@@ -239,7 +247,7 @@ function Table({ columns, data, modifyHeader }) {
                               onClick={(e) => selectHeader(e)}
                             />
                             &nbsp;&nbsp;{item.Header} <br />
-                          </>
+                          </div>
                         );
                       })}
                     </p>
@@ -340,10 +348,14 @@ function Table({ columns, data, modifyHeader }) {
       </div>
       {/* Pagination */}
       <div className="py-4 flex items-center justify-between">
-        {/* <div className="flex-1 flex justify-between sm:hidden">
-          <Button onClick={() => previousPage()} disabled={!canPreviousPage}>Previous</Button>
-          <Button onClick={() => nextPage()} disabled={!canNextPage}>Next</Button>
-        </div> */}
+        <div className="flex-1 flex justify-between sm:hidden">
+          <Button onClick={() => previousPage()} disabled={!canPreviousPage}>
+            Previous
+          </Button>
+          <Button onClick={() => nextPage()} disabled={!canNextPage}>
+            Next
+          </Button>
+        </div>
         <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
           <div className="flex gap-x-2 items-baseline">
             <div>
@@ -374,29 +386,39 @@ function Table({ columns, data, modifyHeader }) {
             </div>
             <span className="sr-only w-1/3">records per page</span>
           </div>
-          {/* <div>
-            <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+          <div>
+            <nav
+              className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
+              aria-label="Pagination"
+            >
               <PageButton
                 className="rounded-l-md"
                 onClick={() => gotoPage(0)}
                 disabled={!canPreviousPage}
               >
                 <span className="sr-only">First</span>
-                <ChevronDoubleLeftIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                First
+                {/* <ArrowLongLeftIcon
+                  className="h-5 w-5 text-gray-400"
+                  aria-hidden="true"
+                /> */}
               </PageButton>
               <PageButton
                 onClick={() => previousPage()}
                 disabled={!canPreviousPage}
               >
                 <span className="sr-only">Previous</span>
-                <ChevronLeftIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                <ArrowLeftIcon
+                  className="h-5 w-5 text-gray-400"
+                  aria-hidden="true"
+                />
               </PageButton>
-              <PageButton
-                onClick={() => nextPage()}
-                disabled={!canNextPage
-                }>
+              <PageButton onClick={() => nextPage()} disabled={!canNextPage}>
                 <span className="sr-only">Next</span>
-                <ChevronRightIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                <ArrowRightIcon
+                  className="h-5 w-5 text-gray-400"
+                  aria-hidden="true"
+                />
               </PageButton>
               <PageButton
                 className="rounded-r-md"
@@ -404,10 +426,10 @@ function Table({ columns, data, modifyHeader }) {
                 disabled={!canNextPage}
               >
                 <span className="sr-only">Last</span>
-                <ChevronDoubleRightIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                Last
               </PageButton>
             </nav>
-          </div> */}
+          </div>
         </div>
       </div>
     </>

@@ -6,7 +6,7 @@
 import Table, {
   AvatarCell,
   SelectColumnFilter,
-  StatusPill
+  StatusPill,
 } from "components/shared/table/Table";
 import { useState } from "react";
 
@@ -122,7 +122,7 @@ const UserDetails = () => {
     setDisplayHeader(headerData);
   };
   return (
-    <div className="min-h-screen text-gray-900">
+    <div className="min-h-screen text-gray-900" data-tesid="mytest">
       <main className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 pt-4">
         <div className="mt-6">
           <Table
