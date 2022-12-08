@@ -1,8 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
+import InputCharCount from "components/shared/InputCharCount";
 import { useEffect, useState } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import { getNestedObjectValue } from "./common";
+import { getNestedObjectValue } from "utils/common";
 
 const getPhonePlainValue = (value, charsToRemove = ["-", " "]) => {
   let processValue = value.trim().split("");
@@ -54,13 +56,16 @@ const ContactInput = ({ formik, field, onEnter }) => {
       setFormattedValue({ ...formattedValue, [name]: "" });
     }
   };
+  const isError =
+    !!getNestedObjectValue(formTouched, field.name) &&
+    !!getNestedObjectValue(formErrors, field.name);
 
   useEffect(() => {
     formik.setFieldValue(phoneInputFieldName, formikValue[field.dialCodeType]);
     onPhoneValueChange(formikValue[field.dialCodeType], phoneInputFieldName);
   }, [formikValue[field.dialCodeType]]);
 
-  return (
+  const phoneInputField = (onCharCountChange, setShowCharCount) => (
     <div className="relative">
       <PhoneInput
         country={field.defaultCountryCode || "us"}
@@ -74,8 +79,18 @@ const ContactInput = ({ formik, field, onEnter }) => {
         inputProps={{
           name: `${field.name}-phone-input`,
           placeholder: "",
-          style: { color: "transparent", width: "100%", height: "38px" },
+          style: {
+            color: "transparent",
+            width: "100%",
+            height: "38px",
+            borderRadius: "5px",
+          },
         }}
+        inputClass={` h-[38px] rounded-md border  px-3 py-2 shadow-sm focus-within:ring-1 text-lg focus:ring-indigo-500 focus:border-indigo-500 w-full pl-12 border-gray-200  placeholder-gray-500 ${
+          isError ? "border-red-600  ring-red-600 " : ""
+        }`}
+        containerClass={`${isError ? "border-red-600  ring-red-600" : ""}`}
+        buttonClass="focus:ring-indigo-500 focus:border-indigo-500 w-11 bg-white border-0 top-1 bottom-1 left-1"
         onlyCountries={field.allowedCountryCodes}
         preferredCountries={[]}
         excludeCountries={[]}
@@ -102,7 +117,11 @@ const ContactInput = ({ formik, field, onEnter }) => {
         type="text"
         id={`here`}
         name={`${field.name}`}
+        onFocus={() => {
+          setShowCharCount && setShowCharCount(true);
+        }}
         onBlur={(evt) => {
+          setShowCharCount && setShowCharCount(false);
           formik.handleBlur(evt);
         }}
         onKeyDown={onEnter(field.name, formik)}
@@ -136,11 +155,48 @@ const ContactInput = ({ formik, field, onEnter }) => {
             plainVal = "";
             evt.target.value = "";
           }
+          onCharCountChange && onCharCountChange(plainVal.length);
           formik.setFieldValue(field.name, plainVal);
           onPhoneValueChange(plainVal, field.name);
         }}
-        className={`absolute top-[1px] bottom-[2px] left-[40px] w-[calc(100%_-_42px)] focus:border-none border-none outline-none focus:outline-none `}
+        className={`absolute top-[2px] bottom-[2px] left-[40px] w-[calc(100%_-_42px)]  focus:w-[calc(100%_-_95px)] border-none outline-none focus:border-none focus:outline-none focus:ring-0`}
       />
+    </div>
+  );
+
+  return (
+    <div>
+      {!!field.enableCharCount ? (
+        <div className="relative">
+          <InputCharCount
+            maxLimit={field.chartCountMaxLimit || 9}
+            initialCount={
+              getNestedObjectValue(formik.values, field.name)?.length || 0
+            }
+          >
+            {(onCharCountChange, setShowCharCount) =>
+              phoneInputField(onCharCountChange, setShowCharCount)
+            }
+          </InputCharCount>
+        </div>
+      ) : (
+        phoneInputField()
+      )}
+      {isError && (
+        <div
+          className=" flex mt-2 text-sm text-red-600"
+          id={`${field.name}-error`}
+        >
+          <ExclamationCircleIcon
+            className="h-5 w-5 text-red-500"
+            aria-hidden="true"
+          />{" "}
+          <p className="ml-1">
+            {" "}
+            {getNestedObjectValue(formErrors, field.name)}{" "}
+          </p>
+        </div>
+      )}
     </div>
   );
 };

@@ -2,6 +2,11 @@ import { hamburgerIcon } from "components/shared/SVGIcon/AppIcons";
 import useInvolvScreenSize from "hooks/useInvolvScreenSize";
 import { useEffect, useRef, useState } from "react";
 import { SidebarItems } from "./SidebarItems";
+
+/**
+ *
+ * @returns sidebar componet
+ */
 export const SideBar = () => {
   const [isSideBarVisible, setisSideBarVisible] = useState(true);
   const [toggleMobileSide, setToggleMobileSide] = useState(false);

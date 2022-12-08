@@ -7,7 +7,6 @@ import { useState } from "react"
 
 const Alert = (props) => {
     const [showAlert, setShowAlert] = useState(false)
-    const showHide = true
     setTimeout(() => {
         setShowAlert(props.show)
     }, 5000)
@@ -21,7 +20,7 @@ const Alert = (props) => {
     }
     const bgDisplayColor = `bg-${bgColor}-100 rounded-lg py-5 px-6 mb-4 text-base text-${bgColor}-700 mb-3`
     return (
-        <div class={bgDisplayColor} role="warning" style={{ display: showAlert ? "block" : "none" }}>
+        <div className={bgDisplayColor} areaRole="warning" style={{ display: showAlert ? "none" : "block" }}>
             {props.status}
         </div>
     )
