@@ -6,12 +6,11 @@
 import Table, {
   AvatarCell,
   SelectColumnFilter,
-  StatusPill,
+  StatusPill
 } from "components/shared/table/Table";
 import { useState } from "react";
 
 // This is the static data , later on we will take this from API and pass using props
-
 const getData = () => {
   const data = [
     {
@@ -81,6 +80,7 @@ const getData = () => {
         "https://images.unsplash.com/photo-1566492031773-4f4e44671857?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
     },
   ];
+
   return [...data, ...data, ...data];
 };
 

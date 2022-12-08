@@ -1,10 +1,18 @@
+/**
+ * Alert Message - Generic component for alert messages
+ * @Author - Ravi Kumar
+ * @Created Date - 24/11/2022
+ */
 import { useState } from "react"
 
-// different message type to display different alert/messages
-// for Red = error!
-// for Yellow = warning!
-// for success = green!
-
+/**
+ * three basic different messages type to display respective alert/messages
+ * for Red = error!
+ * for Yellow = warning!
+ * for success = green!
+ * @Author - Ravi Kumar
+ * @Created Date - 24/11/2022
+*/
 const Alert = (props) => {
     const [showAlert, setShowAlert] = useState(false)
     setTimeout(() => {
