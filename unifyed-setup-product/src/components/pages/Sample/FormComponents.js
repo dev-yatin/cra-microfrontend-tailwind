@@ -14,6 +14,7 @@ const validationSchema = Yup.object().shape({
     .max(50, "Email cannot exceed 50 characters!")
     .required("Enter Email "),
   password: Yup.string().required("Enter password "),
+  comments: Yup.string().required("Enter Comments "),
   teaching: Yup.string().required("Select IsUser"),
   date: Yup.string().required("Enter Date "),
   mobile: Yup.string().required("Enter phone"),
@@ -80,15 +81,15 @@ function FormComponents({ addmode = false }) {
   };
 
   const fields = [
-    // {
-    //   type: "text",
-    //   name: "email",
-    //   label: "Email",
-    //   readOnly: false,
-    //   maxLength: 50,
-    //   enableCharCount: true,
-    //   chartCountMaxLimit: 50,
-    // },
+    {
+      type: "text",
+      name: "email",
+      label: "Email",
+      readOnly: false,
+      maxLength: 50,
+      enableCharCount: true,
+      chartCountMaxLimit: 50,
+    },
     // {
     //   type: "text",
     //   name: "password",
@@ -106,14 +107,14 @@ function FormComponents({ addmode = false }) {
     //   secondaryLabel: "Active",
     //   readOnly: false,
     // },
-    // {
-    //   type: "textarea",
-    //   name: "comments",
-    //   label: "Commnets",
-    //   enableCharCount: true,
-    //   rows: 4,
-    //   readOnly: false,
-    // },
+    {
+      type: "textarea",
+      name: "comments",
+      label: "Commnets",
+      enableCharCount: true,
+      rows: 4,
+      readOnly: false,
+    },
     {
       name: "ssn",
       label: "SSN",
