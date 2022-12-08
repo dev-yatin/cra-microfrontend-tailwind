@@ -1,15 +1,15 @@
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import { useMemo, useState } from "react";
 import Select from "react-select";
-import { getNestedObjectValue } from "utils/common";
 
-export default function CustomSingleSelect({ field, formik }) {
+import { getNestedObjectValue } from "utils/common";
+export default function CustomMultiSelect({ field, formik, onEnter }) {
   const {
     touched: formTouched,
     values: formValues,
     errors: formErrors,
   } = formik;
-  const [value, setvalue] = useState();
+  const [value, setvalue] = useState([]);
 
   const isError =
     !!getNestedObjectValue(formTouched, field.name) &&
@@ -28,8 +28,9 @@ export default function CustomSingleSelect({ field, formik }) {
             }`}
           >
             {field.label}
-          </label>
+          </label>{" "}
           <Select
+            isMulti
             isLoading={field.loading}
             value={value}
             name={field.name}
@@ -52,8 +53,13 @@ export default function CustomSingleSelect({ field, formik }) {
               formik.handleBlur(evt);
             }}
             onChange={(selected) => {
-              formik.setFieldValue(field.name, selected.value);
-              field.onChange && field.onChange(selected.value);
+              let values = selected;
+              if (!!values && Array.isArray(values)) {
+                values = values.filter((val) => !!val);
+              }
+              const formVal = values.map((val) => val.value);
+              formik.setFieldValue(field.name, formVal);
+              field.onChange && field.onChange(formVal);
               setvalue(selected);
             }}
             onMenuOpen={() => field.onClick && field.onClick(field)} // fetch option on demand
