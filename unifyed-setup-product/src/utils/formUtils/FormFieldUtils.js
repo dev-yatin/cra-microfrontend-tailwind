@@ -1,14 +1,14 @@
 import { Switch } from "@headlessui/react";
-import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
-import InputCharCount from "components/shared/InputCharCount";
 import "react-phone-input-2/lib/style.css";
-import { getFilteredString, getNestedObjectValue } from "utils/common";
+import { getNestedObjectValue } from "utils/common";
 import ContactInput from "./ContactInput";
 import CustomMultiSelect from "./CustomMultiSelect";
 import CustomSingleSelect from "./CustomSingleSelect";
 import DateInput from "./DateInput";
 import { MaskedInput } from "./MaskedInput";
 import RichTextInput from "./RichTextInput";
+import TextAreaInput from "./TextAreaInput";
+import TextInput from "./TextInput";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -35,7 +35,6 @@ const onEnter = (fieldName, formik) => (evt) => {
 const getFieldByType = (field, formik) => {
   /**
    * field parameters
-   * @function isValidValue validates weather input text  is valid
    * @function format returns the input value in user specified format
    * @ignoreChar ignore characters while finding the length of an input
    * @enableCharCount enable charachter count label
@@ -50,222 +49,15 @@ const getFieldByType = (field, formik) => {
     errors: formErrors,
   } = formik;
 
-  //returns true if error is present and if field is touched
-  const isError =
-    !!getNestedObjectValue(formTouched, field.name) &&
-    !!getNestedObjectValue(formErrors, field.name);
-
   /**
    * @param type returns input type
    */
   switch (field.type) {
     case "text":
     case "number":
-      const textField = (onCharCountChange, setShowCharCount) => (
-        <div
-          className={`relative rounded-md border  px-3 py-2 shadow-sm focus-within:ring-1  ${
-            isError
-              ? "border-red-600  ring-red-600"
-              : "border-gray-700 focus-within:border-indigo-600  focus-within:ring-indigo-600"
-          }`}
-        >
-          <label
-            htmlFor="name"
-            className={`absolute -top-2 left-2 -mt-px inline-block bg-white px-1  text-sm font-medium  ${
-              isError ? "text-red-500" : "text-gray-500"
-            }
-                `}
-          >
-            {field.label}
-          </label>
-          <input
-            id={field.name}
-            type={field.type}
-            key={field.name}
-            name={field.name}
-            className="block w-full focus:w-[calc(100%_-_55px)] border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm  focus:outline-none"
-            placeholder={field.placeholder}
-            aria-describedby={field.label}
-            disabled={field?.readOnly}
-            maxlength={field.maxLength}
-            minlength={field.minLength}
-            autoComplete={field.autocomplete || "off"}
-            value={getNestedObjectValue(formValues, field.name) ?? ""}
-            onFocus={() => {
-              setShowCharCount && setShowCharCount(true);
-            }}
-            onBlur={(evt) => {
-              setShowCharCount && setShowCharCount(false);
-              formik.handleBlur(evt);
-            }}
-            onChange={(evt) => {
-              let trimmedValue = evt.target.value.trim();
-              let value = trimmedValue === "" ? "" : evt.target.value;
-              if (field.readOnly) {
-                return false;
-              }
-              if (field.isValidValue && !field.isValidValue(value)) {
-                return false;
-              }
-              if (field.format) {
-                value = field.format(value);
-                evt.target.value = value;
-              }
-              onCharCountChange &&
-                onCharCountChange(
-                  getFilteredString(
-                    trimmedValue === "" ? "" : evt.target.value,
-                    field.ignoreChars
-                  ).length
-                );
-              evt.target.value = value;
-              if (field.onChange) {
-                field.onChange(evt, field);
-              }
-              formik.handleChange(evt);
-            }}
-            onKeyDown={() => onEnter(field.name, formik)}
-          />
-        </div>
-      );
-      let initialCount = getNestedObjectValue(formik.values, field.name);
-      if (
-        field.ignoreChars &&
-        getNestedObjectValue(formik.values, field.name)
-      ) {
-        initialCount = getFilteredString(
-          getNestedObjectValue(formik.values, field.name),
-          field.ignoreChars
-        )?.length;
-      }
-      return (
-        <>
-          <div key={field.name}>
-            {!!field.enableCharCount ? (
-              <div className="relative">
-                <InputCharCount
-                  maxLimit={field.chartCountMaxLimit || 50}
-                  initialCount={initialCount || 0}
-                >
-                  {(onCharCountChange, setShowCharCount) =>
-                    textField(onCharCountChange, setShowCharCount)
-                  }
-                </InputCharCount>
-              </div>
-            ) : (
-              textField()
-            )}
-            {isError && (
-              <div
-                className=" flex mt-2 text-sm text-red-600"
-                id={`${field.name}-error`}
-              >
-                <ExclamationCircleIcon
-                  className="h-5 w-5 text-red-500"
-                  aria-hidden="true"
-                />{" "}
-                <p className="ml-1">
-                  {" "}
-                  {getNestedObjectValue(formErrors, field.name)}{" "}
-                </p>
-              </div>
-            )}
-          </div>
-        </>
-      );
+      return <TextInput field={field} formik={formik} onEnter={onEnter} />;
     case "textarea":
-      const textareaField = (onCharCountChange, setShowCharCount) => (
-        <div className="mt-1">
-          <textarea
-            name={field.name}
-            id={field.name}
-            key={field.name}
-            className="block w-full resize-none rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            placeholder={field.placeholder}
-            aria-describedby={field.label}
-            rows={field.rows || 4}
-            disabled={field?.readOnly}
-            minLength={field.minLength}
-            maxlength={field.maxlength}
-            autoComplete={field.autocomplete || "off"}
-            onFocus={() => {
-              setShowCharCount && setShowCharCount(true);
-            }}
-            onBlur={(evt) => {
-              setShowCharCount && setShowCharCount(false);
-              formik.handleBlur(evt);
-            }}
-            value={getNestedObjectValue(formValues, field.name) || ""}
-            onChange={(evt) => {
-              if (field.readOnly) {
-                return false;
-              }
-              let value = evt.target.value;
-              let trimmedValue = evt.target.value.trim();
-              if (trimmedValue === "") {
-                value = trimmedValue;
-              }
-              if (field.format) {
-                evt.target.value = field.format(value);
-              } else {
-                evt.target.value = value;
-              }
-              onCharCountChange &&
-                onCharCountChange(
-                  getFilteredString(
-                    trimmedValue === "" ? "" : evt.target.value,
-                    field.ignoreChars
-                  ).length
-                );
-              formik.handleChange(evt);
-            }}
-            onKeyDown={() => onEnter(field.name, formik)}
-          />
-        </div>
-      );
-      return (
-        <>
-          <div key={field.name}>
-            <label
-              htmlFor={field.name}
-              className="block text-sm font-medium text-gray-700"
-            >
-              {field.label}
-            </label>
-            {!!field.enableCharCount ? (
-              <div className="relative">
-                <InputCharCount
-                  maxLimit={field.chartCountMaxLimit || 50}
-                  initialCount={
-                    getNestedObjectValue(formik.values, field.name) || 0
-                  }
-                >
-                  {(onCharCountChange, setShowCharCount) =>
-                    textareaField(onCharCountChange, setShowCharCount)
-                  }
-                </InputCharCount>
-              </div>
-            ) : (
-              textareaField()
-            )}
-            {isError && (
-              <div
-                className=" flex mt-2 text-sm text-red-600"
-                id={`${field.name}-error`}
-              >
-                <ExclamationCircleIcon
-                  className="h-5 w-5 text-red-500"
-                  aria-hidden="true"
-                />{" "}
-                <p className="ml-1">
-                  {" "}
-                  {getNestedObjectValue(formErrors, field.name)}{" "}
-                </p>
-              </div>
-            )}
-          </div>
-        </>
-      );
+      return <TextAreaInput field={field} formik={formik} onEnter={onEnter} />;
     case "maskedInput":
       return <MaskedInput formik={formik} field={field} onEnter={onEnter} />;
     case "rich-text-input":
