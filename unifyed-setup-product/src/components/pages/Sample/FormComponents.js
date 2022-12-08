@@ -241,6 +241,7 @@ function FormComponents({ addmode = false }) {
   const Login = (status) => {
     setShowSpinner(status);
   };
+  const description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
   return (
     <>
       {/* <Alert
@@ -249,7 +250,7 @@ function FormComponents({ addmode = false }) {
         show={true}
       /> */}
       <div className="flex justify-end">
-        <Modal status={showSpinner} />
+        <Modal status={showSpinner} title="Modal Title" description={description} closeBtnText="Close" saveBtnText="Save" />
       </div>
       <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="mt-auto w-3/4 sm:mx-auto sm:w-full sm:max-w-md">
