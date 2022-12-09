@@ -1,13 +1,20 @@
+/**
+ * Generic Notification -  component to show alerts based on different methods
+ * @Author - Ravi Kumar
+ * @Created Date - 29/11/2022
+ */
+
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Notification = (props) => {
-    // different method type to display different alert/messages
-    // for toast.error = error!
-    // for toast.warning = warning!
-    // for toast.success = green!
     let methodType = props.message;
     let toastType = "";
+    /**
+     * Alert based on different methods 
+     * @Author - Ravi Kumar
+     * @Created Date - 29/11/2022
+    */
     const displayToast = () => {
         if (methodType === "success") {
             toastType = toast.success(`${props.status}`);

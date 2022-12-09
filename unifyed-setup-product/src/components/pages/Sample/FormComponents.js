@@ -142,7 +142,7 @@ function FormComponents({ addmode = false }) {
       isRequired: false,
       type: "select",
       readOnly: false,
-      onChange: () => {},
+      onChange: () => { },
       options: [
         {
           value: true,
@@ -206,7 +206,7 @@ function FormComponents({ addmode = false }) {
       readOnly: false,
       spanXS: 12,
       spanSM: 6,
-      onChange: () => {},
+      onChange: () => { },
       loading: optionVals?.loadState === "LOADING",
       onClick: getOptions,
       options: optionVals.gender.allOptions,
@@ -242,12 +242,11 @@ function FormComponents({ addmode = false }) {
   const Login = (status) => {
     setShowSpinner(status);
   };
-
   return (
     <>
       {/* <Alert
         status="A simple primary alert."
-        messageType="warning"
+        messageType="success"
         show={true}
       /> */}
       <div className="flex justify-end">
@@ -280,7 +279,7 @@ function FormComponents({ addmode = false }) {
                   onClick={() => Login(true)}
                   className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
-                  {/* {showSpinner && <Spinner />}  */}
+                  {/* {showSpinner && <Spinner width={6} height={6} />}  */}
                   Sign in
                 </button>
               </div>
