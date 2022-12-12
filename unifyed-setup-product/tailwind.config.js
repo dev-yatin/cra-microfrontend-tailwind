@@ -22,6 +22,8 @@ module.exports = {
       xl: "1200px",
       "2xl": "1400px",
     },
+    // colors: {},
+    fontFamily: {},
     transform: {
       180: "rotate(180deg)",
     },
