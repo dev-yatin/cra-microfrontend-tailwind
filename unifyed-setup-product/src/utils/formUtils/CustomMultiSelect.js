@@ -3,13 +3,14 @@ import { useMemo, useState } from "react";
 import Select from "react-select";
 
 import { getNestedObjectValue } from "utils/common";
-export default function CustomMultiSelect({ field, formik, onEnter }) {
+export default function CustomMultiSelect({ field, formik, module = "" }) {
   const {
     touched: formTouched,
     values: formValues,
     errors: formErrors,
   } = formik;
   const [value, setvalue] = useState([]);
+  const fieldId = field.name.split(".").join("-");
 
   const isError =
     !!getNestedObjectValue(formTouched, field.name) &&
@@ -30,6 +31,7 @@ export default function CustomMultiSelect({ field, formik, onEnter }) {
             {field.label}
           </label>{" "}
           <Select
+            id={`${module}-${fieldId}`}
             isMulti
             isLoading={field.loading}
             value={value}

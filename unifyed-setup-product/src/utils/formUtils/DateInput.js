@@ -50,7 +50,7 @@ const CustomInput = forwardRef((props, ref) => {
  * @param {*} field
  * @returns datepicker input field with a user specified format
  */
-const DateInput = ({ field, formik }) => {
+const DateInput = ({ field, formik, module = "" }) => {
   const {
     touched: formTouched,
     values: formValues,
@@ -88,7 +88,7 @@ const DateInput = ({ field, formik }) => {
     return (
       <div>
         <DatePicker
-          id={`${fieldId}`}
+          id={`${module}-${fieldId}`}
           label={field.label}
           name={field.name}
           dateFormat={`MM${field.dateSeperator || "-"}dd${
