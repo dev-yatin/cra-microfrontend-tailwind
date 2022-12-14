@@ -3,12 +3,13 @@ import { useMemo, useState } from "react";
 import Select from "react-select";
 import { getNestedObjectValue } from "utils/common";
 
-export default function CustomSingleSelect({ field, formik }) {
+export default function CustomSingleSelect({ field, formik, module = "" }) {
   const {
     touched: formTouched,
     values: formValues,
     errors: formErrors,
   } = formik;
+  const fieldId = field.name.split(".").join("-");
   const [value, setvalue] = useState();
 
   const isError =
@@ -30,6 +31,7 @@ export default function CustomSingleSelect({ field, formik }) {
             {field.label}
           </label>
           <Select
+            id={`${module}-${fieldId}`}
             isLoading={field.loading}
             value={value}
             name={field.name}

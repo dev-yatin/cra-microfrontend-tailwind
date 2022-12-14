@@ -9,13 +9,13 @@ import { getFilteredString, getNestedObjectValue } from "utils/common";
  * @param {*} formik
  * @returns textarea input
  */
-export default function TextAreaInput({ field, formik, onEnter }) {
+export default function TextAreaInput({ field, formik, onEnter, module = "" }) {
   const {
     touched: formTouched,
     values: formValues,
     errors: formErrors,
   } = formik;
-
+  const fieldId = field.name.split(".").join("-");
   const fieldValue = getNestedObjectValue(formValues, field.name);
   const fieldError = getNestedObjectValue(formErrors, field.name);
   const fieldTouched = getNestedObjectValue(formTouched, field.name);
@@ -35,8 +35,7 @@ export default function TextAreaInput({ field, formik, onEnter }) {
     <div className="mt-1">
       <textarea
         name={field.name}
-        id={field.name}
-        key={field.name}
+        id={`${module}-${fieldId}`}
         className={`block w-full resize-none rounded-md shadow-sm sm:text-sm focus-within:ring-1  ${
           isError
             ? "border-red-600  ring-red-600"
@@ -89,7 +88,7 @@ export default function TextAreaInput({ field, formik, onEnter }) {
     () => {
       return (
         <>
-          <div key={field.name}>
+          <div>
             <label
               htmlFor={field.name}
               className={`block text-sm font-medium  ${

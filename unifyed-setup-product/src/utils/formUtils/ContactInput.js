@@ -15,12 +15,13 @@ const getPhonePlainValue = (value, charsToRemove = ["-", " "]) => {
   return finalValue.substr(0, 17);
 };
 
-const ContactInput = ({ formik, field, onEnter }) => {
+const ContactInput = ({ formik, field, onEnter, module = "" }) => {
   const {
     touched: formTouched,
     values: formValues,
     errors: formErrors,
   } = formik;
+  const fieldId = field.name.split(".").join("-");
   const phoneInputFieldName = field.name;
   const contactValue = formik.values;
   const formikValue = contactValue;
@@ -68,6 +69,7 @@ const ContactInput = ({ formik, field, onEnter }) => {
   const phoneInputField = (onCharCountChange, setShowCharCount) => (
     <div className="relative">
       <PhoneInput
+        id={`${module}-${fieldId}`}
         country={field.defaultCountryCode || "us"}
         specialLabel={field.label}
         key={field.key || field.name}

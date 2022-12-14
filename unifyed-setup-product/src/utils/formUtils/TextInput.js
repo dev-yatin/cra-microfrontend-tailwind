@@ -9,13 +9,13 @@ import { getFilteredString, getNestedObjectValue } from "utils/common";
  * @param {*} formik
  * @returns returns text input
  */
-export default function TextInput({ field, formik, onEnter }) {
+export default function TextInput({ field, formik, onEnter, module = "" }) {
   const {
     touched: formTouched,
     values: formValues,
     errors: formErrors,
   } = formik;
-
+  const fieldId = field.name.split(".").join("-");
   const fieldValue = getNestedObjectValue(formValues, field.name);
   const fieldError = getNestedObjectValue(formErrors, field.name);
   const fieldTouched = getNestedObjectValue(formTouched, field.name);
@@ -48,7 +48,7 @@ export default function TextInput({ field, formik, onEnter }) {
         {field.label}
       </label>
       <input
-        id={field.name}
+        id={`${module}-${fieldId}`}
         type={field.type}
         key={field.name}
         name={field.name}
@@ -106,7 +106,7 @@ export default function TextInput({ field, formik, onEnter }) {
     () => {
       return (
         <>
-          <div key={field.name}>
+          <div>
             {!!field.enableCharCount ? (
               <div className="relative">
                 <InputCharCount

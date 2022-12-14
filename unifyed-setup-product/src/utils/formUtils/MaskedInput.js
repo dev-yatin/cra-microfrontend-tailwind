@@ -13,12 +13,13 @@ import { getFilteredString, getNestedObjectValue } from "utils/common";
  * @param {object}field
  * @returns a input field with user specific masking and format
  */
-export const MaskedInput = ({ formik = {}, field = {} }) => {
+export const MaskedInput = ({ formik = {}, field = {}, module = "" }) => {
   const {
     touched: formTouched,
     values: formValues,
     errors: formErrors,
   } = formik;
+  const fieldId = field.name.split(".").join("-");
   const fieldError = getNestedObjectValue(formErrors, field.name);
   const fieldTouched = getNestedObjectValue(formTouched, field.name);
   const fieldValue = getNestedObjectValue(formValues, field.name);
@@ -63,7 +64,7 @@ export const MaskedInput = ({ formik = {}, field = {} }) => {
         {field.label}
       </label>
       <input
-        id={field.name}
+        id={`${module}-${fieldId}`}
         type={field.type}
         key={field.name}
         name={field.name}
