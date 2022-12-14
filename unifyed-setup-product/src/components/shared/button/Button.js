@@ -1,5 +1,5 @@
 /**
- * Loader -  Generic component of button
+ * Button -  Generic component of button
  * @Author - Ravi Kumar
  * @Created Date - 8/12/2022
 */
