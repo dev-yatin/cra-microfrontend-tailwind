@@ -13,10 +13,10 @@ export const AuthProvider = ({ children }) => {
   const history = useHistory();
 
   useEffect(() => {
-    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    const userInfo = localStorage.getItem("access_token");
     setUser(userInfo);
     if (!userInfo) {
-      history.push("/home");
+      history.push("/login");
     }
   }, [history]);
 

@@ -33,6 +33,11 @@ const post = (resource, model) =>
     .then(handleResponse)
     .catch(handleError);
 
+/**
+ *
+ */
+const doLogin = (path, model) => http.doLogin(`${BASE_URL}/${path}`, model);
+
 /** @param {string} path */
 /** @param {object} model */
 const put = (path, model) =>
@@ -60,5 +65,6 @@ export const apiProvider = {
   put,
   patch,
   remove,
+  doLogin,
   serverBaseUrl: BASE_URL,
 };

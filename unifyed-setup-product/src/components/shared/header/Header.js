@@ -113,7 +113,14 @@ export default function Header({ children }) {
           "fixed top-0 bg-white border-b border-gray-200 px-3 py-3 2xl:px-4 2xl:py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 w-full left-0 h-20 z-10"
         }
       >
-        <LoggedInMenu userProfile={{ fullName: "shubham" }} logout={() => {}} />
+        {localStorage.getItem("access_token") ? (
+          <LoggedInMenu
+            userProfile={{ fullName: "shubham" }}
+            logout={() => {}}
+          />
+        ) : (
+          ""
+        )}
       </div>
       <div className="p-5 bg-gray-100 flex-1 mt-20">
         {breadCrumbComponent()}

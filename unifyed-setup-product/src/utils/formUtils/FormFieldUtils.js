@@ -55,6 +55,7 @@ const getFieldByType = (field, formik) => {
   switch (field.type) {
     case "text":
     case "number":
+    case "password":
       return <TextInput field={field} formik={formik} onEnter={onEnter} />;
     case "textarea":
       return <TextAreaInput field={field} formik={formik} onEnter={onEnter} />;

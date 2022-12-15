@@ -60,6 +60,23 @@ export const navigations = [
         },
         childItems: [],
       },
+      {
+        id: 5,
+        parent: null,
+        name: "Login",
+        menuOrder: 1,
+        visible: true,
+        leafNode: true,
+        logo: null,
+        toolTip: null,
+        accessComponentDTO: {
+          id: 1,
+          description: "Login",
+          componentName: "Login",
+          componentPath: "login",
+        },
+        childItems: [],
+      },
     ],
   },
   {

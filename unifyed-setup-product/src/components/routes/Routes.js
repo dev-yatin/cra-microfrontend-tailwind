@@ -1,10 +1,11 @@
 import ErrorFound from "components/pages/ErrorFound/ErrorFound";
+import Login from "components/pages/Login/Login";
 import FormComponents from "components/pages/Sample/FormComponents";
 import Sample from "components/pages/Sample/Sample";
 import SampleForm from "components/pages/Sample/SampleForm";
 import UserDetails from "components/pages/UserDetails/UserDetails";
 import Layout from "components/shared/layout/Layout";
-// import ContextProvider from "context/provider";
+import ContextProvider from "context/provider";
 import { navigations } from "navigation";
 import { Route, Switch } from "react-router-dom";
 
@@ -16,6 +17,7 @@ const routeComponentMap = {
   "": Sample,
   form: SampleForm,
   home: FormComponents,
+  login: Login,
   userdetail: UserDetails,
   founderror: ErrorFound,
 };
@@ -71,9 +73,9 @@ const Routes = () => {
               //   )}
               // />
               <Route key={`${route}-${i}`} exact path={`/${route}`}>
-                {/* <ContextProvider> */}
-                <RouteComponent />
-                {/* </ContextProvider> */}
+                <ContextProvider>
+                  <RouteComponent />
+                </ContextProvider>
               </Route>
             );
           })}
