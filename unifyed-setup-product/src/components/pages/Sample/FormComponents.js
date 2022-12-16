@@ -2,7 +2,6 @@
 import axios from "axios";
 import Button from "components/shared/button/Button";
 import Modal from "components/shared/modal/InvolvModal";
-import Notification from "components/shared/notification/InvolvNotification";
 import { useFormik } from "formik";
 import React from "react";
 import { maskSSN } from "utils/formUtils/FormatUtils";
@@ -144,7 +143,7 @@ function FormComponents({ addmode = false }) {
       isRequired: false,
       type: "select",
       readOnly: false,
-      onChange: () => { },
+      onChange: () => {},
       options: [
         {
           value: true,
@@ -208,7 +207,7 @@ function FormComponents({ addmode = false }) {
       readOnly: false,
       spanXS: 12,
       spanSM: 6,
-      onChange: () => { },
+      onChange: () => {},
       loading: optionVals?.loadState === "LOADING",
       onClick: getOptions,
       options: optionVals.gender.allOptions,
@@ -243,9 +242,10 @@ function FormComponents({ addmode = false }) {
 
   const Login = (status) => {
     setShowSpinner(status);
-    setButtonStatus(true)
+    setButtonStatus(true);
   };
-  const description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+  const description =
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
   return (
     <>
       {/* <Alert
@@ -254,7 +254,13 @@ function FormComponents({ addmode = false }) {
         show={true}
       /> */}
       <div className="flex justify-end">
-        <Modal status={showSpinner} title="Modal Title" description={description} closeBtnText="Close" saveBtnText="Save" />
+        <Modal
+          status={showSpinner}
+          title="Modal Title"
+          description={description}
+          closeBtnText="Close"
+          saveBtnText="Save"
+        />
       </div>
       <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="mt-auto w-3/4 sm:mx-auto sm:w-full sm:max-w-md">
@@ -278,13 +284,22 @@ function FormComponents({ addmode = false }) {
               {fields.map((field) => getFieldByType(field, formik))}
 
               <div>
-                <Button btnTitle="Sign In" py="2" px="4" bgColor="black" textColor="white" fontSize="sm" onClick={() => Login(true)} buttonStatus={false} />
+                <Button
+                  btnTitle="Sign In"
+                  py="2"
+                  px="4"
+                  bgColor="black"
+                  textColor="white"
+                  fontSize="sm"
+                  onClick={() => Login(true)}
+                  buttonStatus={false}
+                />
               </div>
             </form>
           </div>
         </div>
       </div>
-      <Notification status="Logged in Successfully" message="success" />
+      {/* <Notification status="Logged in Successfully" message="success" /> */}
     </>
   );
 }

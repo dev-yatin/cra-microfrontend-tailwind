@@ -4,10 +4,11 @@
  * @Created Date - 29/11/2022
  */
 
+import { useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 const Notification = (props) => {
+  console.log(props, "PROPS");
   let methodType = props.message;
   let toastType = "";
   /**
@@ -15,21 +16,25 @@ const Notification = (props) => {
    * @Author - Ravi Kumar
    * @Created Date - 29/11/2022
    */
-  const displayToast = () => {
-    if (methodType === "success") {
-      toastType = toast.success(`${props.status}`);
-    } else if (methodType === "error") {
-      toastType = toast.error(`${props.status}`);
-    } else {
-      toastType = toast.warning(`${props.status}`);
+  const displayToast = (display) => {
+    if (display) {
+      if (methodType === "success") {
+        toastType = toast.success(`${props.status}`, { toastId: "success1" });
+      } else if (methodType === "error") {
+        toastType = toast.error(`${props.status}`, { toastId: "error1" });
+      } else {
+        toastType = toast.warning(`${props.status}`, { toastId: "default" });
+      }
     }
     return toastType;
   };
-  const notify = displayToast;
+
+  useEffect(() => {
+    props.display ? displayToast(props.display) : displayToast(props.display);
+  });
   return (
     <>
       <div>
-        <button onClick={notify}>Notify!</button>
         <ToastContainer
           position="bottom-right"
           autoClose={5000}

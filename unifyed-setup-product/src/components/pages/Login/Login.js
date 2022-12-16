@@ -1,13 +1,19 @@
+/**
+ * Login component
+ * @author Shohbit Srivastav
+ * @Created Date - 15 Dec 2022
+ * Sample User admin@involv.com/test
+ */
 import Notification from "components/shared/notification/InvolvNotification";
 import { useFormik } from "formik";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { apiProvider } from "services/index";
 import getFieldByType from "utils/formUtils/FormFieldUtils";
-
 import * as Yup from "yup";
 const Login = () => {
   const history = useHistory();
-
+  let [isToast, setToast] = useState(false);
   const fields = [
     {
       type: "text",
@@ -50,6 +56,15 @@ const Login = () => {
 
   return (
     <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
+      {isToast ? (
+        <Notification
+          status="Invalid Username/password"
+          message="error"
+          display={true}
+        />
+      ) : (
+        ""
+      )}
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form
@@ -62,7 +77,7 @@ const Login = () => {
                 formik.touched.constructor === Object &&
                 Object.keys(formik.errors).length === 0
               ) {
-                let responseData = apiProvider.doLogin("auth/login", {
+                let responseData = apiProvider.post("auth/login", {
                   username: e.target.email.value,
                   password: e.target.password.value,
                 });
@@ -75,12 +90,8 @@ const Login = () => {
                   })
                   .catch((err) => {
                     if (err.response.data.statusCode === 401) {
-                      return (
-                        <Notification
-                          status="Invalid Username/password"
-                          message="success"
-                        />
-                      );
+                      console.log("dlfkdlfk");
+                      setToast(true);
                     }
                   });
               } else {
@@ -89,7 +100,6 @@ const Login = () => {
             }}
           >
             {fields.map((field) => getFieldByType(field, formik))}
-
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <input
@@ -106,7 +116,6 @@ const Login = () => {
                 </label>
               </div>
             </div>
-
             <div>
               <button
                 type="submit"
@@ -115,6 +124,7 @@ const Login = () => {
                 Sign in
               </button>
             </div>
+            ;
           </form>
         </div>
       </div>

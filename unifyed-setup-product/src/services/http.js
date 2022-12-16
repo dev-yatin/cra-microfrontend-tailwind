@@ -13,12 +13,6 @@ const handleUnauthenticatedRequest = () => {
   // throw new axios.Cancel("SESSION_TIMEOUT");
 };
 
-http.doLogin = (url, data) => {
-  const promise = axios.post(url, data);
-  const response = promise.then((response) => response.data);
-  return response;
-};
-
 http.interceptors.request.use(
   function (config) {
     const token = localStorage.getItem("access_token");
