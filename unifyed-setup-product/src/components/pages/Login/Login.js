@@ -23,6 +23,9 @@ const Login = () => {
       maxLength: 50,
       enableCharCount: true,
       chartCountMaxLimit: 50,
+      onChange: () => {
+        setToast(false);
+      },
     },
     {
       type: "password",
