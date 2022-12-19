@@ -22,14 +22,13 @@ const handleError = (error) => {
 };
 
 /** @param {string} path */
-const get = (path) =>
-  http.get(`${BASE_URL}/${path}`).then(handleResponse).catch(handleError);
+const get = (path) => http.get(`${BASE_URL}/${path}`).then(handleResponse).catch(handleError);
 
 /** @param {string} path */
 /** @param {object} model */
-const post = (resource, model) =>
+const post = (resource, model, config = {}) =>
   http
-    .post(`${BASE_URL}/${resource}`, model)
+    .post(`${BASE_URL}/${resource}`, model, config)
     .then(handleResponse)
     .catch((error) => {
       handleError(error);
@@ -38,24 +37,15 @@ const post = (resource, model) =>
 
 /** @param {string} path */
 /** @param {object} model */
-const put = (path, model) =>
-  http
-    .put(`${BASE_URL}/${path}`, model)
-    .then(handleResponse)
-    .catch(handleError);
+const put = (path, model) => http.put(`${BASE_URL}/${path}`, model).then(handleResponse).catch(handleError);
 
 /** @param {string} path */
 /** @param {object} model */
-const patch = (path, model) =>
-  http
-    .patch(`${BASE_URL}/${path}`, model)
-    .then(handleResponse)
-    .catch(handleError);
+const patch = (path, model) => http.patch(`${BASE_URL}/${path}`, model).then(handleResponse).catch(handleError);
 
 /** @param {string} path */
 /** @param {string} id */
-const remove = (path) =>
-  http.delete(`${BASE_URL}/${path}`).then(handleResponse).catch(handleError);
+const remove = (path) => http.delete(`${BASE_URL}/${path}`).then(handleResponse).catch(handleError);
 
 export const apiProvider = {
   get,
