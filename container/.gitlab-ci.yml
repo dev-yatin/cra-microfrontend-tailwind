@@ -1,0 +1,28 @@
+variables:
+  DOCKER_REGISTRY: 017565797752.dkr.ecr.us-east-2.amazonaws.com
+  AWS_DEFAULT_REGION: us-east-2
+  APP_NAME: student-admin-ui
+  ECS_SERVICE_NAME: student-admin-ui
+  ECS_CLUSTER_NAME: ENGAGE-DEV
+  # DOCKER_HOST: tcp://docker:2375
+  TAG: DEV-CONT
+publish_setup_container_dev:
+  image:
+    name: docker:19.03
+  services:
+    - docker:19.03-dind
+  before_script:
+    # - apk add --no-cache curl jq python3 py3-pip git
+    # - pip install awscli
+    # - aws --version
+    # - docker --version
+    # - git --version
+    - echo "Inside Setup Container Only"
+  script:
+    - docker help
+    # - docker build -t $DOCKER_REGISTRY/$APP_NAME:$TAG .
+    # - aws ecr get-login-password | docker login --username AWS --password-stdin $DOCKER_REGISTRY
+    # - docker push $DOCKER_REGISTRY/$APP_NAME:$TAG
+    # - aws ecs update-service --cluster $ECS_CLUSTER_NAME --service $ECS_SERVICE_NAME --force-new-deployment
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"

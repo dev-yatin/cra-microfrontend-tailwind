@@ -1,18 +1,18 @@
 stages:
-    - triggers
+  - triggers
 
 trigger_publish_setup_product_dev:
-    stage: triggers
-    trigger:
-        include: unifyed-setup-product/.gitlab-ci.yml
-    rules:
-        - changes:
-              - unifyed-setup-product/*
+  stage: triggers
+  trigger:
+    include: product/.gitlab-ci.yml
+  rules:
+    - changes:
+        - product/*
 
 trigger_publish_setup_container_dev:
-    stage: triggers
-    trigger:
-        include: unifyed-setup-container/.gitlab-ci.yml
-    rules:
-        - changes:
-              - unifyed-setup-container/*
+  stage: triggers
+  trigger:
+    include: container/.gitlab-ci.yml
+  rules:
+    - changes:
+        - container/*
